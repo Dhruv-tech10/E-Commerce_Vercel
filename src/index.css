@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* Swiper slides ko same height dene ke liye - 1 row fix */
+.swiper-slide {
+    height: auto !important;
+}
+
+.main-card .swiper-wrapper {
+    align-items: stretch !important;
+}

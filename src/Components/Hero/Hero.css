@@ -1,0 +1,115 @@
+Hero Slider Image
+.image{
+    width: 100%;
+    object-fit: cover;
+}
+
+.carousel-item{
+    position: relative;
+}
+
+.carousel-item::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(45, 35, 25, 0.45),
+        rgba(70, 55, 40, 0.25),
+        rgba(0, 0, 0, 0.05)
+    );
+    z-index: 1;
+}
+
+
+.carousel-caption{
+    z-index: 2;
+}
+
+.carousel-caption{
+    position: absolute;
+    top: 50%;
+    left: 7%;
+    transform: translateY(-50%);
+    z-index: 2;
+    text-align: left;
+    width: 40%;
+    right: auto;
+    bottom: auto;
+    padding: 0;
+}
+
+.carousel-caption span {
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #4b382d;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+}
+
+.carousel-caption h2{
+    font-size: 57px;
+    line-height: 1.05;
+    font-weight: 700;
+    color: #2d1d14;
+    margin-bottom: 10px;
+    font-family: "Playfair Display", serif;
+    max-width: 750px;
+}
+
+
+.carousel-caption p{
+    font-size: 23px;
+    color: #5c4738;
+    margin-bottom: 15px;
+    font-weight: 400;
+    font-family: sans-serif;
+}
+
+
+.carousel-caption button {
+    padding: 13px 34px;
+    border: none;
+    background: #2d1d14;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    text-transform: uppercase;
+}
+
+.carousel-caption button:hover{
+    background: #1e120b;
+}
+
+
+.carousel-indicators{
+    justify-content: flex-start;
+    margin-left: 7%;
+    margin-bottom: 35px;
+}
+
+.carousel-indicators [data-bs-target]{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #d3c8bf;
+    border: none;
+    opacity: 1;
+    margin: 0 7px;
+}
+
+.carousel-indicators .active{
+    background-color: #181310;
+}
+
+
+.carousel-control-prev,
+.carousel-control-next{
+    display: none;
+}
+
