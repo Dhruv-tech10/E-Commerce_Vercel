@@ -142,6 +142,14 @@ export const homeKitchenProducts = [
 ];
 
 // ============================================
+// 👑 WEDDING PRODUCTS (Yeh missing tha, ab fix kar diya)
+// ============================================
+export const weddingProducts = [
+  { id: 901, name: "Bridal Lehenga - Royal Red", category: "Wedding", price: 14999, offerPrice: 11999, sizes: ["M","L","XL"], brand: "Manyavar", rating: 4.9 },
+  { id: 902, name: "Sherwani - Classic Gold", category: "Wedding", price: 9999, offerPrice: 7999, sizes: ["M","L","XL"], brand: "Manyavar", rating: 4.8 }
+];
+
+// ============================================
 // 🚀 LOAD FUNCTIONS
 // ============================================
 const productGroups = [
@@ -152,7 +160,8 @@ const productGroups = [
   { data: electronicsProducts, prefix: "electronics" },
   { data: groceryProducts, prefix: "grocery" },
   { data: brandsProducts, prefix: "brands" },
-  { data: homeKitchenProducts, prefix: "home" }
+  { data: homeKitchenProducts, prefix: "home" },
+  { data: weddingProducts, prefix: "wedding" } // Yeh bhi add kar diya
 ];
 
 export const loadAllProducts = async () => {
@@ -198,6 +207,6 @@ export const loadAllWomenProducts = () => loadCategoryProducts(womenProducts);
 export const loadAllKidsProducts = () => loadCategoryProducts(kidsProducts);
 export const loadAllBeautyProducts = () => loadCategoryProducts(beautyProducts);
 export const loadAllElectronicsProducts = () => loadCategoryProducts(electronicsProducts);
-export const loadAllWeddingProducts = () => loadCategoryProducts(groceryProducts);
+export const loadAllWeddingProducts = () => loadCategoryProducts(weddingProducts); // Sahi array se return hoga ab
 export const loadAllBrandsProducts = () => loadCategoryProducts(brandsProducts);
 export const loadAllHomeKitchenProducts = () => loadCategoryProducts(homeKitchenProducts);
