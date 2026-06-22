@@ -1,5 +1,5 @@
 // src/component/ProductsData.jsx
-import { getProductImages } from '../../services/ImageService';
+import { getProductImages } from '../Services/ImageService';
 
 // ============================================
 // 📦 COMMON PRODUCT UTILITY
