@@ -100,7 +100,7 @@ import Header from "./Components/Header/Header";
 import Fotter from "./Components/Fotter/Fotter";
 import LoginSignup from "./Components/Header/LoginSignup";
 import AuthModal from './Components/AuthModal/AuthModal';
-import ProductDetails from "./Components/AllPage/Productdetailspage";
+import ProductDetailsPage from './Components/AllPage/ProductDetailsPage';
 import Wishlist from './Components/Header/Wishlist/Wishlist';
 import Cart from './Components/Header/Cart/Cart';
 import Checkoutpage from './Components/Header/Wishlist/Checkoutpage';
