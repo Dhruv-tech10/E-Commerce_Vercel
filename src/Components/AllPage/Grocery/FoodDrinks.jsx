@@ -139,16 +139,16 @@ function FoodDrinks() {
       </button>
       
       {openSections[sectionKey] && (
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1.5 rounded transition">
               <input 
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item) || false}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-4 h-4 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -159,17 +159,17 @@ function FoodDrinks() {
   const FilterSidebar = () => (
     <div className="bg-white p-4 rounded-xl shadow-sm space-y-4">
       <div className="flex justify-between items-center border-b pb-3">
-        <h2 className="font-bold text-base text-gray-800">🍎 Filter</h2>
+        <h2 className="font-bold text-base text-gray-800"> Filter</h2>
         <button onClick={clearAllFilters} className="text-orange-600 text-xs font-semibold hover:underline">Clear All</button>
       </div>
 
-      <AccordionSection title="📂 Category" sectionKey="categories" items={FILTER_CONFIG.categories} />
-      <AccordionSection title="🏷️ Brand" sectionKey="brands" items={FILTER_CONFIG.brands} />
-      <AccordionSection title="🍽️ Type" sectionKey="type" items={FILTER_CONFIG.type} />
-      <AccordionSection title="📦 Packaging" sectionKey="packaging" items={FILTER_CONFIG.packaging} />
+      <AccordionSection title=" Category" sectionKey="categories" items={FILTER_CONFIG.categories} />
+      <AccordionSection title=" Brand" sectionKey="brands" items={FILTER_CONFIG.brands} />
+      <AccordionSection title=" Type" sectionKey="type" items={FILTER_CONFIG.type} />
+      <AccordionSection title=" Packaging" sectionKey="packaging" items={FILTER_CONFIG.packaging} />
 
       <div className="mb-2 pb-3">
-        <h2 className="font-semibold text-gray-800 text-sm mb-1">💰 Max Price: ₹{maxPrice}</h2>
+        <h2 className="font-semibold text-gray-800 text-sm mb-1"> Max Price: ₹{maxPrice}</h2>
         <Slider
           value={maxPrice}
           onChange={(e, val) => setMaxPrice(val)}
@@ -200,6 +200,10 @@ function FoodDrinks() {
 
   return (
     <div className="bg-gray-50 min-h-screen pt-8">
+        <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl font-bold">Food & Drinks</h1>
+        <p className="mt-2 text-white/80 text-sm">Timeless Elegance for Every Occasion</p>
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">

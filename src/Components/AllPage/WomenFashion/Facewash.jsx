@@ -109,16 +109,16 @@ function Facewash() {
       </button>
       
       {openSections[sectionKey] && (
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
               <input 
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item) || false}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-3.5 h-3.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -175,7 +175,7 @@ function Facewash() {
   return (
     <div className="bg-gray-50 min-h-screen pb-12">
       
-      <div className="bg-gradient-to-r from-green-500 to-teal-600 text-white text-center py-12 px-4">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-3xl md:text-4xl font-black tracking-wide">Face Wash</h1>
         <p className="mt-2 text-green-100 text-lg">Gentle cleansing for radiant skin</p>
       </div>

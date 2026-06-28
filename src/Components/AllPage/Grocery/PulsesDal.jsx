@@ -149,10 +149,10 @@ function PulsesDal() {
         </svg>
       </div>
       {openDropdown[filterKey] && (
-        <div className="mt-2 pl-1 space-y-1.5 max-h-60 overflow-y-auto custom-scrollbar">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {options.map((item, i) => (
             <label key={i} className="flex items-center text-sm cursor-pointer text-gray-700 hover:text-gray-900">
-              <input type="checkbox" className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked={activeFilters[filterKey].includes(item)} onChange={() => handleFilterChange(filterKey, item)} />
+              <input type="checkbox" className="w-3.5 h-3.5 !mr-2 !text-sm rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked={activeFilters[filterKey].includes(item)} onChange={() => handleFilterChange(filterKey, item)} />
               {item}
             </label>
           ))}
@@ -163,6 +163,10 @@ function PulsesDal() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
+        <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl font-bold">Pulses & Dal</h1>
+        <p className="mt-2 text-white/80 text-sm">Timeless Elegance for Every Occasion</p>
+      </div>
       <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
           <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
           <span className="text-lg !font-medium">/</span>
@@ -198,7 +202,6 @@ function PulsesDal() {
           </div>
         </div>
         <div className="flex-1">
-          <h1 className="text-3xl font-bold mb-6">Pulses & Dal</h1>
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {filteredProducts.map((product) => (

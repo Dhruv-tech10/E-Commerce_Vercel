@@ -108,16 +108,16 @@ function HairRemover() {
       </button>
       
       {openSections[sectionKey] && (
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1.5 rounded transition">
               <input 
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item) || false}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -128,15 +128,15 @@ function HairRemover() {
   const FilterSidebar = () => (
     <div className="bg-white p-4 rounded-xl shadow-sm space-y-4">
       <div className="flex justify-between items-center border-b pb-3">
-        <h2 className="font-bold text-base text-gray-800">✂️ Hair Remover Filters</h2>
+        <h2 className="!font-bold !text-base text-gray-800"> Hair Remover Filters</h2>
         <button onClick={clearAllFilters} className="text-indigo-600 text-xs font-semibold hover:underline">Clear All</button>
       </div>
 
-      <AccordionSection title="🏷️ Brand" sectionKey="brands" items={FILTER_CONFIG.brands} />
-      <AccordionSection title="📦 Product Type" sectionKey="type" items={FILTER_CONFIG.type} />
-      <AccordionSection title="🧴 Skin Type" sectionKey="skinType" items={FILTER_CONFIG.skinType} />
-      <AccordionSection title="📍 Body Area" sectionKey="area" items={FILTER_CONFIG.area} />
-      <AccordionSection title="🧪 Formulation" sectionKey="formulation" items={FILTER_CONFIG.formulation} />
+      <AccordionSection title="Brand" sectionKey="brands" items={FILTER_CONFIG.brands} />
+      <AccordionSection title=" Product Type" sectionKey="type" items={FILTER_CONFIG.type} />
+      <AccordionSection title=" Skin Type" sectionKey="skinType" items={FILTER_CONFIG.skinType} />
+      <AccordionSection title="Body Area" sectionKey="area" items={FILTER_CONFIG.area} />
+      <AccordionSection title=" Formulation" sectionKey="formulation" items={FILTER_CONFIG.formulation} />
 
       <div className="mb-4 border-b border-gray-100 pb-3">
         <button onClick={() => toggleSection('size')} className="flex justify-between items-center w-full font-semibold text-gray-800 text-sm mb-2">
@@ -161,7 +161,7 @@ function HairRemover() {
       </div>
 
       <div className="mb-2 pb-3">
-        <h2 className="font-semibold text-gray-800 text-sm mb-1">💰 Max Price: ₹{maxPrice}</h2>
+        <h2 className="font-semibold text-gray-800 text-sm mb-1"> Max Price: ₹{maxPrice}</h2>
         <Slider
           value={maxPrice}
           onChange={(e, val) => setMaxPrice(val)}
@@ -192,6 +192,10 @@ function HairRemover() {
 
   return (
     <div className="bg-gray-50 min-h-screen pt-8">
+        <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl font-bold">Hair Remover</h1>
+        <p className="mt-2 text-white/80 text-sm">Timeless Elegance for Every Occasion</p>
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3">
@@ -208,7 +212,7 @@ function HairRemover() {
             onClick={() => setMobileFiltersOpen(true)} 
             className="flex items-center bg-white px-4 py-3 rounded-xl shadow-sm w-full justify-between border"
           >
-            <span className="font-bold text-sm text-gray-700">✂️ Refine Hair Remover</span>
+            <span className="font-bold text-sm text-gray-700"> Refine Hair Remover</span>
             <Menu size={18} />
           </button>
         </div>
@@ -217,7 +221,7 @@ function HairRemover() {
           <div className="md:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setMobileFiltersOpen(false)}>
             <div className="absolute top-0 left-0 w-80 h-full bg-white overflow-y-auto p-4 flex flex-col" onClick={(e) => e.stopPropagation()}>
               <div className="flex justify-between items-center border-b pb-3 mb-2">
-                <h2 className="font-black text-gray-800">✂️ Hair Remover Filters</h2>
+                <h2 className="font-black text-gray-800"> Hair Remover Filters</h2>
                 <button onClick={() => setMobileFiltersOpen(false)} className="text-gray-500 p-1"><X size={20} /></button>
               </div>
               <FilterSidebar />
@@ -251,7 +255,7 @@ function HairRemover() {
 
             {filteredProducts.length === 0 ? (
               <div className="bg-white rounded-xl border p-16 text-center shadow-sm">
-                <div className="mb-4"><span className="text-6xl">✂️</span></div>
+                <div className="mb-4"><span className="text-6xl"></span></div>
                 <p className="text-gray-400 font-medium text-sm">No hair removers match your filters.</p>
                 <button onClick={clearAllFilters} className="text-indigo-600 text-xs font-bold mt-2 underline">Reset Filters</button>
               </div>

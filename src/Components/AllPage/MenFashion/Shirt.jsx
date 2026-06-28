@@ -3,9 +3,9 @@ import ProductCard from "../ProductCard";
 import { loadAllProducts } from "../ProductsData";
 import { Slider } from "@mui/material";
 import { Link } from 'react-router-dom';
+
 // ✅ SHIRTS FILTER DATA - Sirf Fabric, Combo, Price
 const FILTER_CONFIG = {
-  // Fabric Filter
   fabric: [
     "Acrylic", "Art Silk", "Bamboo", "Chambray", "Chanderi Cotton",
     "Chanderi Silk", "Chiffon", "Cotton", "Cotton Blend", "Cotton Cambric",
@@ -16,8 +16,6 @@ const FILTER_CONFIG = {
     "Satin", "Silk", "Silk Blend", "Soft Silk", "Viscose",
     "Viscose Rayon", "Wool"
   ],
-  
-  // Combo / Quantity Filter
   combo: [
     "Pack of 1", "Pack of 2", "Pack of 3", "Pack of 4", 
     "Pack of 5", "Pack of 6", "Single"
@@ -28,22 +26,15 @@ function Shirt() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // 🔥 PRICE RANGE STATE
   const [maxPrice, setMaxPrice] = useState(3000);
-  
-  // 🔥 SORT STATE
   const [sortBy, setSortBy] = useState("default");
-  
-  // 🔥 MOBILE FILTER STATE
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   
-  // 🔥 FILTER STATE (Sirf fabric aur combo)
   const [filters, setFilters] = useState({
     fabric: [],
     combo: []
   });
   
-  // 🔥 ACCORDION SECTIONS STATE
   const [openSections, setOpenSections] = useState({
     fabric: true,
     combo: true
@@ -65,7 +56,6 @@ function Shirt() {
     fetchData();
   }, []);
 
-  // ✅ TOGGLE FILTER HANDLER
   const handleFilterToggle = (key, value) => {
     setFilters((prev) => {
       const exists = prev[key].includes(value);
@@ -76,47 +66,33 @@ function Shirt() {
     });
   };
 
-  // ✅ TOGGLE ACCORDION SECTION
   const toggleSection = (section) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
   const clearAllFilters = () => {
-    setFilters({
-      fabric: [],
-      combo: []
-    });
+    setFilters({ fabric: [], combo: [] });
     setMaxPrice(3000);
     setSortBy("default");
   };
 
-  // ✅ ONLY SHIRTS PRODUCTS
   let filteredProducts = products.filter(
     (p) => p.category?.toLowerCase() === "shirts"
   );
 
-  // Apply all filters
   filteredProducts = filteredProducts.filter((product) => {
-    // Price filter
     if (product.offerPrice > maxPrice) return false;
-    
-    // Fabric filter
     if (filters.fabric.length > 0 && !filters.fabric.includes(product.fabric)) return false;
-    
-    // Combo filter
     if (filters.combo.length > 0 && !filters.combo.includes(product.combo)) return false;
-    
     return true;
   });
 
-  // Apply sorting
   if (sortBy === "price_low") {
     filteredProducts.sort((a, b) => a.offerPrice - b.offerPrice);
   } else if (sortBy === "price_high") {
     filteredProducts.sort((a, b) => b.offerPrice - a.offerPrice);
   }
 
-  // 🧱 ACCORDION SECTION COMPONENT
   const AccordionSection = ({ title, sectionKey, items }) => (
     <div className="mb-4 border-b border-gray-100 pb-3">
       <button 
@@ -132,7 +108,7 @@ function Shirt() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
-        )}
+        ) }
       </button>
       
       {openSections[sectionKey] && (
@@ -143,9 +119,9 @@ function Shirt() {
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item)}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-3.5 h-3.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -153,22 +129,19 @@ function Shirt() {
     </div>
   );
 
-  // 🗂️ FILTER SIDEBAR COMPONENT
   const FilterSidebar = () => (
-    <div className="bg-white p-4 rounded-xl shadow-sm">
-      <div className="flex justify-between items-center mb-4 border-b pb-3">
-        <h2 className="font-bold text-base text-gray-800">Filters</h2>
-        <button onClick={clearAllFilters} className="text-orange-600 text-xs font-semibold hover:underline">Clear All</button>
+    <div className="bg-white p-4 rounded-xl shadow-sm h-full flex flex-col justify-between">
+      <div>
+        <div className="flex justify-between items-center mb-4 border-b pb-3">
+          <h2 className="font-bold text-base text-gray-800">Filters</h2>
+          <button onClick={clearAllFilters} className="text-orange-600 text-xs font-semibold hover:underline">Clear All</button>
+        </div>
+        
+        <AccordionSection title="Fabric" sectionKey="fabric" items={FILTER_CONFIG.fabric} />
+        <AccordionSection title="Combo" sectionKey="combo" items={FILTER_CONFIG.combo} />
       </div>
-      
-      {/* Fabric Section */}
-      <AccordionSection title=" Fabric" sectionKey="fabric" items={FILTER_CONFIG.fabric} />
-      
-      {/* Combo Section */}
-      <AccordionSection title="Combo" sectionKey="combo" items={FILTER_CONFIG.combo} />
 
-      {/* Price Slider */}
-      <div className="mb-4 pt-2">
+      <div className="mb-4 pt-2 mt-auto">
         <h2 className="font-bold text-gray-800 text-sm mb-2">Max Price: ₹{maxPrice}</h2>
         <div className="px-1">
           <Slider
@@ -209,21 +182,18 @@ function Shirt() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-
-      
-      {/* HEADER BANNER */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center py-8">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-3xl font-bold">Men's Shirts Collection</h1>
         <p className="mt-2 text-white/80 text-sm">Elevate Your Style with Premium Shirts</p>
       </div>
       <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
-            <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
-            <span className="text-lg !font-medium">/</span>
-            <span className="text-lg !font-medium text-[#E4921A]">Men's Shirts</span>
-          </nav>
-          <h2 className="text-2xl !font-bold !mt-3 !mb-3 !pl-7">Men's Shirts</h2>
+        <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
+        <span className="text-lg !font-medium">/</span>
+        <span className="text-lg !font-medium text-[#E4921A]">Men's Shirts</span>
+      </nav>
+      <h2 className="text-2xl !font-bold !mt-3 !mb-3 !pl-7">Men's Shirts</h2>
 
-      {/* MOBILE FILTER BUTTON */}
+      {/* MOBILE FILTER BUTTON & DRAWER */}
       <div className="md:hidden px-4 pt-4">
         <button 
           onClick={() => setMobileFiltersOpen(true)} 
@@ -236,7 +206,6 @@ function Shirt() {
         </button>
       </div>
 
-      {/* MOBILE FILTER DRAWER */}
       {mobileFiltersOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-black/50" onClick={() => setMobileFiltersOpen(false)}>
           <div className="absolute top-0 left-0 w-80 h-full bg-white shadow-xl overflow-y-auto p-4" onClick={(e) => e.stopPropagation()}>
@@ -254,10 +223,12 @@ function Shirt() {
       )}
 
       <div className="max-w-7xl mx-auto p-4">
-        <div className="flex gap-6">
+        {/* Changed item alignment to stretch layout blocks to full height */}
+        <div className="flex gap-6 items-stretch">
           
-          {/* DESKTOP SIDEBAR */}
-          <div className="w-72 hidden md:block sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto">
+          {/* 🛠️ FIXED DESKTOP SIDEBAR CONTAINER */}
+          {/* Removed h-[calc(...)] fixed height restrictions and used h-auto to touch footer layout context */}
+          <div className="w-72 hidden md:block sticky top-24 h-auto self-start">
             <FilterSidebar />
           </div>
 
@@ -283,7 +254,6 @@ function Shirt() {
 
             {filteredProducts.length === 0 ? (
               <div className="bg-white rounded-xl shadow-sm p-12 text-center">
-                <div className="text-5xl mb-4"></div>
                 <p className="text-gray-500 text-sm">No Shirts found matching your filters.</p>
                 <button 
                   onClick={clearAllFilters}

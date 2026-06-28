@@ -1,5 +1,3 @@
-
-
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import FirstInst from '../../assets/Img/Instagram/FirstInst.png';
 import SecondInst from '../../assets/Img/Instagram/SecondInst.png';
@@ -59,7 +57,8 @@ const Instagram = () => {
             rating: 5
         }
     ];
- const instagramImages = [
+
+    const instagramImages = [
         FirstInst,
         SecondInst,
         ThreeInst,
@@ -68,47 +67,45 @@ const Instagram = () => {
         SixInst,
         SevenInst,
     ];
+
     return (
         <>
-        <div className="w-full py-6">
-            <h1 className='flex items-center !text-[30px] mt-4 !font-semibold !mb-6 !ml-6'>
-                What Our Customers Say
-            </h1>
-            
-            <div className="main-card mb-3 mt-3 px-4">
-                <Swiper
-                    modules={[Autoplay, Pagination]}
-                    pagination={{
-                        clickable: true,
-                        dynamicBullets: false,
-                    }}
-                    autoplay={{
-                        delay: 2000,
-                        disableOnInteraction: false,
-                        pauseOnMouseEnter: true,
-                    }}
-                    loop={true}
-                    spaceBetween={20}
-                    slidesPerView={3}
-                    breakpoints={{
-                        320: { slidesPerView: 1, spaceBetween: 0 },
-                        768: { slidesPerView: 2, spaceBetween: 20 },
-                        1024: { slidesPerView: 3, spaceBetween: 20 },
-                    }}
-                    className="pb-12"
-                >
-                    {reviewsData.map((item) => (
-                        <SwiperSlide key={item.id}>
-                                <div className="w-full bg-white border border-[#E5E7EB] rounded-[16px] p-5 md:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-
-                                    {/* Review Text */}
+            {/* Reviews Section */}
+            <div className="w-full py-6">
+                <h1 className='flex items-center text-[30px] mt-4 font-semibold mb-6 px-4 md:px-8 lg:px-12'>
+                    What Our Customers Say
+                </h1>
+                
+                <div className="main-card mb-3 mt-3 px-4 md:px-8 lg:px-12">
+                    <Swiper
+                        modules={[Autoplay, Pagination]}
+                        pagination={{
+                            clickable: true,
+                            dynamicBullets: false,
+                        }}
+                        autoplay={{
+                            delay: 2000,
+                            disableOnInteraction: false,
+                            pauseOnMouseEnter: true,
+                        }}
+                        loop={true}
+                        spaceBetween={20}
+                        slidesPerView={3}
+                        breakpoints={{
+                            320: { slidesPerView: 1, spaceBetween: 0 },
+                            768: { slidesPerView: 2, spaceBetween: 20 },
+                            1024: { slidesPerView: 3, spaceBetween: 20 },
+                        }}
+                        className="pb-12 [&_.swiper-pagination]:relative [&_.swiper-pagination]:mt-5 [&_.swiper-pagination-bullet]:w-2.5 [&_.swiper-pagination-bullet]:h-2.5 [&_.swiper-pagination-bullet]:bg-gray-300 [&_.swiper-pagination-bullet]:opacity-100 [&_.swiper-pagination-bullet-active]:bg-black [&_.swiper-pagination-bullet-active]:w-[30px] [&_.swiper-pagination-bullet-active]:rounded-[5px] [&_.swiper-pagination-bullet]:transition-all [&_.swiper-pagination-bullet]:duration-300"
+                    >
+                        {reviewsData.map((item) => (
+                            <SwiperSlide key={item.id}>
+                                <div className="w-full bg-white border border-gray-200 rounded-[16px] p-5 md:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
                                     <p className="text-[#1A1A1A] text-sm md:text-base font-normal leading-relaxed mb-2 min-h-[70px]">
                                         "{item.review}"
                                     </p>
 
-                                    {/* User Info Section */}
                                     <div className="flex items-center gap-3">
-                                        {/* Avatar Image */}
                                         <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
                                             <img
                                                 src={item.avatar}
@@ -117,85 +114,72 @@ const Instagram = () => {
                                             />
                                         </div>
 
-                                        {/* Name and Stars */}
                                         <div className="flex flex-col gap-1">
                                             <h4 className="text-sm md:text-base font-semibold text-[#111111] leading-none">
                                                 {item.name}
                                             </h4>
 
-                                            {/* Star Rating */}
                                             <div className="flex items-center gap-0.5">
                                                 {[...Array(5)].map((_, index) => (
                                                     <StarIcon 
                                                         key={index}
-                                                        className={`w-3.5 h-3.5 ${index < item.rating ? 'text-[#FBBF24]' : 'text-gray-300'}`}
-                                                        style={{ fontSize: '14px' }}
+                                                        className={`w-3.5 h-3.5 ${index < item.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                                                        sx={{ fontSize: 14 }}
                                                     />
                                                 ))}
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
             </div>
 
-            {/* Custom CSS for pagination dots */}
-            <style jsx>{`
-                .swiper-pagination {
-                    position: relative !important;
-                    bottom: 0 !important;
-                    margin-top: 20px;
-                }
-                .swiper-pagination-bullet {
-                    width: 10px;
-                    height: 10px;
-                    background: #D1D5DB;
-                    opacity: 1;
-                    transition: all 0.3s ease;
-                }
-                .swiper-pagination-bullet-active {
-                    background: #000000;
-                    width: 30px;
-                    border-radius: 5px;
-                }
-            `}</style>
-        </div>
-
             {/* Newsletter Section */}
-            <div className="bg-[#fff3ee] rounded-lg mb-4 !mx-17 p-4 md:p-6 mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
+            <div className="bg-[#fff3ee] rounded-lg mb-6 mx-4 md:mx-8 lg:mx-12 p-4 md:p-6 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
                 <div className="text-center md:text-left">
                     <h3 className="text-base md:text-lg font-bold text-gray-900">Join Our Newsletter</h3>
                     <p className="text-gray-600 text-xs md:text-sm">Get updates on new arrivals, offers & more.</p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-                    <input type="email" placeholder="Enter your email" className="w-full sm:w-auto flex-1 md:w-64 px-3 md:px-4 py-2 border !border-[#1E2D42] rounded-lg text-sm focus:outline-none focus:border-[#1E2D42]" />
-                    <button className="bg-[#1E2D42] text-white px-4 md:px-6 py-2 rounded-lg  transition text-sm font-semibold">SUBSCRIBE</button>
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email" 
+                        className="w-full sm:w-auto flex-1 md:w-64 px-3 md:px-4 py-2 border border-[#1E2D42] rounded-lg text-sm focus:outline-none focus:border-[#1E2D42]" 
+                    />
+                    <button className="bg-[#1E2D42] text-white px-4 md:px-6 py-2 rounded-lg transition text-sm font-semibold hover:bg-[#152232]">
+                        SUBSCRIBE
+                    </button>
                 </div>
             </div>
-            <div className="flex mb-2 mx-4 items-center justify-between px-10 py-6">
-                <h3 className="text-[32px] font-bold text-black">
+
+            {/* Instagram Section (Full Width Layout Fix) */}
+            <div className="w-full px-4 md:px-8 lg:px-12 pt-4">
+                <h3 className="text-2xl md:text-[32px] font-bold text-black tracking-wide mb-4">
                     Follow Us On Instagram
                 </h3>
+            </div>
 
-                <div className="flex items-center gap-2 cursor-pointer text-black">
-                    <span className="text-[16px] font-medium">View All</span>
-                    <ArrowForwardIcon sx={{ fontSize: 20 }} />
+            {/* Instagram Images Grid Container */}
+            <div className="w-full px-4 md:px-8 lg:px-12 mb-8">
+                <div className="main-img flex gap-4 overflow-x-auto select-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                    {instagramImages.map((img, index) => (
+                        <div 
+                            key={index} 
+                            className="w-[140px] h-[140px] sm:w-[150px] sm:h-[150px] md:w-[170px] md:h-[170px] lg:w-[185px] lg:h-[185px] flex-shrink-0 rounded-[12px] overflow-hidden cursor-pointer"
+                        >
+                            <img
+                                src={img}
+                                alt={`Instagram ${index + 1}`}
+                                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
-            <div className='main-img flex gap-3 mx-4 mb-4'>
-                {instagramImages.map((img, index) => (
-                    <img
-                        key={index}
-                        src={img}
-                        alt={`Instagram ${index + 1}`}
-                        className="w-40 rounded-md cursor-pointer transition-transform duration-300 hover:scale-105"
-                    />
-                ))}
-            </div>
-</>
+        </>
     );
 };
 

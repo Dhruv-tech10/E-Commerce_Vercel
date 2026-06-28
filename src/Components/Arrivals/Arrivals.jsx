@@ -18,11 +18,12 @@ import SecondShop from '../../assets/Img/Shop/SecondShop.png';
 import ThreeShop from '../../assets/Img/Shop/ThreeShop.png';
 import FourShop from '../../assets/Img/Shop/FourShop.png';
 import FiveShop from '../../assets/Img/Shop/FiveShop.png';
-
-
-
-
-
+import Nivealogo from '../../assets/Img/Arrivals/Nivealogo.png';
+import Bata from '../../assets/Img/Arrivals/Bata.png';
+import MiLogo from '../../assets/Img/Arrivals/MiLogo.png';
+import Himalaya from '../../assets/Img/Arrivals/Himalaya.png';
+import Applelogo from '../../assets/Img/Arrivals/Applelogo.png';
+import Patanjali from '../../assets/Img/Arrivals/Patanjali.png';
 // ✅ WishlistUtils import - sahi path
 import { toggleWishlist, isInWishlist, getWishlist } from '../WishlistUtils';
 
@@ -32,12 +33,12 @@ const Arrivals = () => {
     // Load wishlist on component mount
     useEffect(() => {
         setWishlistItems(getWishlist());
-        
+
         // Listen for wishlist updates
         const handleWishlistUpdate = () => {
             setWishlistItems(getWishlist());
         };
-        
+
         window.addEventListener('wishlistUpdated', handleWishlistUpdate);
         return () => window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
     }, []);
@@ -126,7 +127,7 @@ const Arrivals = () => {
         const isAdded = toggleWishlist(product);
         // Update local state
         setWishlistItems(getWishlist());
-        
+
         if (isAdded) {
             toast.success('Added to wishlist ❤️');
         } else {
@@ -137,19 +138,74 @@ const Arrivals = () => {
     const checkIsInWishlist = (productId) => {
         return isInWishlist(productId);
     };
-
+    const [isPaused, setIsPaused] = useState(false);
+    const logos = [Nivealogo, Bata, MiLogo, Himalaya, Applelogo, Patanjali];
     return (
         <div>
+            {/* <div className='!h-30 bg-[#fff3ee] mb-4 mt-5 py-3 px-3 items-center'>
+                
+            </div> */}
+            {/* મેઈન પેરેન્ટ કન્ટેનર - ઊંચાઈ ઓછી કરી અને માર્જિન ઝીરો કર્યું */}
+            <div className="h-32 my-0 flex items-center w-full overflow-hidden relative bg-transparent">
+
+                {/* CSS એનિમેશન - 0% થી -50% ને બદલે હવે લિસ્ટ મોટું હોવાથી પ્રોપર સેટિંગ્સ */}
+                <style>{`
+        @keyframes customMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); } /* જો ૩ વાર રીપીટ કરો તો -33.33% રાખવું */
+        }
+        .animate-custom-marquee {
+            animation: customMarquee 25s linear infinite; 
+        }
+        .animation-paused {
+            animation-play-state: paused;
+        }
+    `}</style>
+
+                {/* સ્લાઈડર ટ્રેક */}
+                <div
+                    className={`flex w-max animate-custom-marquee cursor-pointer py-2 ${isPaused ? 'animation-paused' : ''}`}
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                >
+                    {/* સેટ ૧ */}
+                    <div className="flex px-3 gap-6 md:gap-7 lg:gap-7 xl:gap-8 items-center md:px-4 lg:px-4">
+                        {logos.map((logo, index) => (
+                            <div key={`set1-${index}`} className="bg-white p-2 rounded-xl shadow-sm border border-gray-100 flex items-center justify-center w-40 h-20 md:w-48 md:h-24 2xl:w-56 2xl:h-28 transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-md">
+                                <img src={logo} alt={`Logo-${index}`} className="!h-[85%] !w-[90%] object-contain" />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* સેટ ૨ (ડુપ્લિકેટ - સ્પેસ કવર કરવા માટે) */}
+                    <div className="flex px-3 gap-6 md:gap-7 lg:gap-7 xl:gap-8 items-center md:px-4 lg:px-4" aria-hidden="true">
+                        {logos.map((logo, index) => (
+                            <div key={`set2-${index}`} className="bg-white p-2 rounded-xl shadow-sm border border-gray-100 flex items-center justify-center w-40 h-20 md:w-48 md:h-24 2xl:w-56 2xl:h-28 transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-md">
+                                <img src={logo} alt={`Logo-dup1-${index}`} className="!h-[85%] !w-[90%] object-contain" />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* સેટ ૩ (ત્રિપલ - ૨૫૬૦px ની મોટી સ્ક્રીન પર ગેપ બિલકુલ ન દેખાય તે માટે ખાસ) */}
+                    <div className="flex px-3 gap-6 md:gap-7 lg:gap-7 xl:gap-8 items-center md:px-4 lg:px-4" aria-hidden="true">
+                        {logos.map((logo, index) => (
+                            <div key={`set3-${index}`} className="bg-white p-2 rounded-xl shadow-sm border border-gray-100 flex items-center justify-center w-40 h-20 md:w-48 md:h-24 2xl:w-56 2xl:h-28 transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-md">
+                                <img src={logo} alt={`Logo-dup2-${index}`} className="!h-[85%] !w-[90%] object-contain" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
             <div className='new-Arrivals mx-4 my-3'>
-                <div className="flex items-center justify-between px-10 py-6 ">
+                <div className="flex items-center justify-between px-10 py-3 ">
                     <h3 className="text-[32px] font-bold text-black">
                         New-Arrivals
                     </h3>
 
-                    <div className="flex items-center gap-2 cursor-pointer text-black">
+                    {/* <div className="flex items-center gap-2 cursor-pointer text-black">
                         <span className="text-[16px] font-medium">View All</span>
                         <ArrowForwardIcon sx={{ fontSize: 20 }} />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="arrivals-row flex gap-4 overflow-x-auto py-3">
                     {ArrivalsData.map((item) => (
@@ -165,18 +221,18 @@ const Arrivals = () => {
                                 </div>
                                 <div className='text-sec'>
                                     {/* Wishlist Button */}
-                                    <button 
+                                    <button
                                         className="absolute right-4 top-3 text-[#222] transition hover:text-red-500"
                                         onClick={() => handleWishlistToggle(item)}
                                     >
                                         {checkIsInWishlist(item.id) ? (
-                                            <FavoriteOutlinedIcon 
-                                                style={{ width: "24px", height: "24px" }} 
+                                            <FavoriteOutlinedIcon
+                                                style={{ width: "24px", height: "24px" }}
                                                 className="text-red-500"
                                             />
                                         ) : (
-                                            <FavoriteBorderOutlinedIcon 
-                                                style={{ width: "24px", height: "24px" }} 
+                                            <FavoriteBorderOutlinedIcon
+                                                style={{ width: "24px", height: "24px" }}
                                             />
                                         )}
                                     </button>

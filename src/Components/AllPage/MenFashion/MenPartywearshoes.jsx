@@ -135,9 +135,9 @@ function MenPartywearShoes() {
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item)}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-3.5 h-3.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -197,7 +197,7 @@ function MenPartywearShoes() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="bg-gradient-to-r from-amber-600 to-orange-700 text-white text-center py-8">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-3xl font-bold">Men's Party Wear Shoes</h1>
         <p className="mt-2 text-white/80 text-sm">Step Up Your Style Game</p>
       </div>

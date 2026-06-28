@@ -103,16 +103,16 @@ function EyeShadow() {
       </button>
       
       {openSections[sectionKey] && (
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1.5 rounded transition">
               <input 
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item) || false}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-4 h-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-pink-600 focus:ring-pink-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -126,10 +126,10 @@ function EyeShadow() {
         <button onClick={clearAllFilters} className="text-pink-600 text-xs font-semibold hover:underline">Clear All</button>
       </div>
 
-      <AccordionSection title="🏷️ Brand" sectionKey="brands" items={FILTER_CONFIG.brands} />
-      <AccordionSection title="✨ Finish" sectionKey="finish" items={FILTER_CONFIG.finish} />
-      <AccordionSection title="📦 Type" sectionKey="type" items={FILTER_CONFIG.type} />
-      <AccordionSection title="🎨 Shade Family" sectionKey="shade" items={FILTER_CONFIG.shade} />
+      <AccordionSection title=" Brand" sectionKey="brands" items={FILTER_CONFIG.brands} />
+      <AccordionSection title=" Finish" sectionKey="finish" items={FILTER_CONFIG.finish} />
+      <AccordionSection title="Type" sectionKey="type" items={FILTER_CONFIG.type} />
+      <AccordionSection title="Shade Family" sectionKey="shade" items={FILTER_CONFIG.shade} />
 
       <div className="mb-4 border-b border-gray-100 pb-3">
         <button onClick={() => toggleSection('size')} className="flex justify-between items-center w-full font-semibold text-gray-800 text-sm mb-2">
@@ -185,6 +185,10 @@ function EyeShadow() {
 
   return (
     <div className="bg-gray-50 min-h-screen pt-8">
+        <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl font-bold">Eye Shadows</h1>
+        <p className="mt-2 text-white/80 text-sm">Timeless Elegance for Every Occasion</p>
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ✅ BREADCRUMB - LIKE IMAGE */}

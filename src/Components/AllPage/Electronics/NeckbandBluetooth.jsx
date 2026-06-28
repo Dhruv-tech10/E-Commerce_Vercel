@@ -90,16 +90,16 @@ function NeckbandBluetooth() {
           {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </button>
         {isOpen && (
-          <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
             {items.map((item, idx) => (
               <label key={idx} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
                 <input 
                   type="checkbox" 
                   checked={filters[sectionKey]?.includes(item) || false} 
                   onChange={() => handleFilterToggle(sectionKey, item)} 
-                  className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500" 
+                  className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" 
                 />
-                <span className="text-gray-600 text-xs">{item}</span>
+                <span className="text-gray-600 !text-sm">{item}</span>
               </label>
             ))}
           </div>
@@ -155,7 +155,7 @@ function NeckbandBluetooth() {
   return (
     <div className="bg-gray-100 min-h-screen font-sans">
       {/* Top Main Jumbotron Hero Banner Strip Section header panel details */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center py-10 shadow-inner">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Neckband Collection</h1>
         <p className="mt-1.5 text-sm text-white/80">Premium wireless neckbands engineered for immersive acoustics</p>
       </div>

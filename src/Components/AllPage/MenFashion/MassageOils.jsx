@@ -79,8 +79,8 @@ function MassageOils() {
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
               <input type="checkbox" checked={filters[sectionKey]?.includes(item)} onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-3.5 h-3.5 rounded border-gray-300 text-orange-600" />
-              <span className="text-gray-600 text-xs">{item}</span>
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600" />
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -110,7 +110,7 @@ function MassageOils() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white text-center py-12">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-4xl font-bold">Massage Oils</h1>
       </div>
 <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">

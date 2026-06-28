@@ -117,9 +117,9 @@ function Kurta() {
                   type="checkbox" 
                   checked={filters[sectionKey]?.includes(item) || false} 
                   onChange={() => handleFilterToggle(sectionKey, item)} 
-                  className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500" 
+                  className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" 
                 />
-                <span className="text-gray-600 text-xs">{item}</span>
+                <span className="text-gray-600 !text-sm">{item}</span>
               </label>
             ))}
           </div>
@@ -184,7 +184,7 @@ function Kurta() {
     <div className="bg-gray-50 min-h-screen font-sans">
     
       {/* 🔷 ROYAL TRADITIONAL HERO JUMBOTRON DESIGN TITLE GRAPHICS BANNER HOUSING PANEL */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-800 text-white text-center py-10 shadow-inner">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Groom Kurta Set Hub</h1>
         <p className="mt-1.5 text-sm text-white/80">Discover wedding Kurtas, Pathani suits, royal Dhoti setups and designer Indo-Western ethnic wears</p>
       </div>

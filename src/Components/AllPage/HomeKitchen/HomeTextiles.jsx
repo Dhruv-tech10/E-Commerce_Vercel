@@ -175,12 +175,12 @@ function HomeTextiles() {
         {openSections[sectionKey] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>
       {openSections[sectionKey] && (
-        <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
               <input type="checkbox" checked={filters[sectionKey]?.includes(item)} onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-3.5 h-3.5 rounded border-gray-300 text-indigo-600" />
-              <span className="text-gray-600 text-xs">{item}</span>
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-indigo-600" />
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -215,15 +215,9 @@ function HomeTextiles() {
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-12">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-4xl font-bold">Home Textiles</h1>
         <p className="mt-2 text-white/80">Complete Your Home with Premium Fabrics</p>
-        <div className="mt-4 flex justify-center gap-3 flex-wrap">
-          <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs">Curtains</span>
-          <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs">Towels</span>
-          <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs">Table Linens</span>
-          <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs">Blankets & Throws</span>
-        </div>
       </div>
        <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
             <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>

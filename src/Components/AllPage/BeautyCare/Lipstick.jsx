@@ -135,6 +135,10 @@ function Lipstick() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
+        <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl font-bold">Lipstick</h1>
+        <p className="mt-2 text-white/80 text-sm">Timeless Elegance for Every Occasion</p>
+      </div>
       <div className="max-w-7xl mx-auto px-4 py-6">
         
         {/* ✅ BREADCRUMB - LIKE IMAGE */}
@@ -149,7 +153,7 @@ function Lipstick() {
           {/* SIDEBAR */}
           <div className="w-72 bg-white p-4 rounded-xl shadow-sm h-fit sticky top-4">
             <div className="flex justify-between mb-4 border-b pb-2">
-              <h2 className="font-bold text-lg">FILTERS</h2>
+              <h2 className="!font-bold !text-lg">FILTERS</h2>
               {getActiveFilterCount() > 0 && (
                 <button
                   className="text-red-500 text-sm hover:text-red-700 font-medium"
@@ -161,8 +165,8 @@ function Lipstick() {
             </div>
 
             {/* Type Filter */}
-            <div className="mb-6">
-              <h3 className="font-semibold text-sm mb-3 uppercase text-gray-700">
+            <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
+              <h3 className="!font-semibold !text-sm mb-3 uppercase text-gray-700">
                 Lipstick Type
               </h3>
               {FILTER_CONFIG.type.map((item, i) => (
@@ -172,18 +176,18 @@ function Lipstick() {
                 >
                   <input
                     type="checkbox"
-                    className="mr-3 w-4 h-4 accent-pink-500 cursor-pointer"
+                    className="w-3.5 h-3.5 !mr-2 accent-pink-500 cursor-pointer"
                     checked={selectedFilters.type.includes(item)}
                     onChange={() => handleFilterChange("type", item)}
                   />
-                  <span>{item}</span>
+                  <span className="!text-sm">{item}</span>
                 </label>
               ))}
             </div>
 
             {/* Finish Filter */}
-            <div className="mb-6">
-              <h3 className="font-semibold text-sm mb-3 uppercase text-gray-700">
+            <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
+              <h3 className="!font-semibold !text-sm mb-3 uppercase text-gray-700">
                 Finish
               </h3>
               {FILTER_CONFIG.finish.map((item, i) => (
@@ -193,18 +197,18 @@ function Lipstick() {
                 >
                   <input
                     type="checkbox"
-                    className="mr-3 w-4 h-4 accent-pink-500 cursor-pointer"
+                    className="w-3.5 h-3.5 !mr-2 accent-pink-500 cursor-pointer"
                     checked={selectedFilters.finish.includes(item)}
                     onChange={() => handleFilterChange("finish", item)}
                   />
-                  <span>{item}</span>
+                  <span className="!text-sm">{item}</span>
                 </label>
               ))}
             </div>
 
             {/* Brand Filter */}
-            <div className="mb-6">
-              <h3 className="font-semibold text-sm mb-3 uppercase text-gray-700">
+            <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
+              <h3 className="!font-semibold !text-sm mb-3 uppercase text-gray-700">
                 Brand
               </h3>
               {FILTER_CONFIG.brand.map((item, i) => (
@@ -214,18 +218,18 @@ function Lipstick() {
                 >
                   <input
                     type="checkbox"
-                    className="mr-3 w-4 h-4 accent-pink-500 cursor-pointer"
+                    className="w-3.5 h-3.5 !mr-2 accent-pink-500 cursor-pointer"
                     checked={selectedFilters.brand.includes(item)}
                     onChange={() => handleFilterChange("brand", item)}
                   />
-                  <span>{item}</span>
+                  <span className="!text-sm">{item}</span>
                 </label>
               ))}
             </div>
 
             {/* Shade Family Filter */}
-            <div className="mb-6">
-              <h3 className="font-semibold text-sm mb-3 uppercase text-gray-700">
+            <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
+              <h3 className="!font-semibold !text-sm mb-3 uppercase text-gray-700">
                 Shade Family
               </h3>
               {shadeFamily.map((item, i) => (
@@ -235,11 +239,11 @@ function Lipstick() {
                 >
                   <input
                     type="checkbox"
-                    className="mr-3 w-4 h-4 accent-pink-500 cursor-pointer"
+                    className="w-3.5 h-3.5 !mr-2 accent-pink-500 cursor-pointer"
                   />
-                  <span>
+                  <span className="!text-sm">
                     <span
-                      className="inline-block w-3 h-3 rounded-full mr-2"
+                      className="inline-block w-3.5 h-3.5 !mr-2 rounded-full mr-2"
                       style={{
                         backgroundColor: getShadeColor(item),
                       }}
@@ -253,8 +257,8 @@ function Lipstick() {
             {/* 🎨 PRICE RANGE SLIDER - LIKE IMAGE (ORANGE) */}
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xl">💰</span>
-                <h3 className="font-semibold text-sm uppercase text-gray-700">
+                <span className="text-xl"></span>
+                <h3 className="!font-semibold !text-sm uppercase text-gray-700">
                   Max Price: ₹{maxPrice.toLocaleString()}
                 </h3>
               </div>
@@ -300,12 +304,6 @@ function Lipstick() {
 
           {/* PRODUCTS */}
           <div className="flex-1">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-3xl font-bold">Lipstick</h1>
-              <p className="text-gray-600">
-                {lipstickProducts.length} Products
-              </p>
-            </div>
 
             {/* Active Filters Display */}
             {getActiveFilterCount() > 0 && (

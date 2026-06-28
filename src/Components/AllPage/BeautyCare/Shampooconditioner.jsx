@@ -169,16 +169,16 @@ function Shampooconditioner() {
       </button>
       
       {openSections[sectionKey] && (
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1.5 rounded transition">
               <input 
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item) || false}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-4 h-4 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -189,17 +189,17 @@ function Shampooconditioner() {
   const FilterSidebar = () => (
     <div className="bg-white p-4 rounded-xl shadow-sm space-y-4">
       <div className="flex justify-between items-center border-b pb-3">
-        <h2 className="font-bold text-base text-gray-800">🧴 Shampoo & Conditioner Filters</h2>
+        <h2 className="font-bold text-base text-gray-800">Shampoo & Conditioner Filters</h2>
         <button onClick={clearAllFilters} className="text-orange-600 text-xs font-semibold hover:underline">Clear All</button>
       </div>
 
-      <AccordionSection title="🏷️ Brand" sectionKey="brands" items={FILTER_CONFIG.brands} />
-      <AccordionSection title="💆 Hair Type" sectionKey="hairType" items={FILTER_CONFIG.hairType} />
-      <AccordionSection title="🧪 Formulation" sectionKey="formulation" items={FILTER_CONFIG.formulation} />
+      <AccordionSection title=" Brand" sectionKey="brands" items={FILTER_CONFIG.brands} />
+      <AccordionSection title=" Hair Type" sectionKey="hairType" items={FILTER_CONFIG.hairType} />
+      <AccordionSection title=" Formulation" sectionKey="formulation" items={FILTER_CONFIG.formulation} />
 
       <div className="mb-4 border-b border-gray-100 pb-3">
         <button onClick={() => toggleSection('size')} className="flex justify-between items-center w-full font-semibold text-gray-800 text-sm mb-2">
-          <span>📏 Size</span>
+          <span> Size</span>
           {openSections.size ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </button>
         {openSections.size && (
@@ -220,7 +220,7 @@ function Shampooconditioner() {
       </div>
 
       <div className="mb-2 pb-3">
-        <h2 className="font-semibold text-gray-800 text-sm mb-1">💰 Max Price: ₹{maxPrice}</h2>
+        <h2 className="font-semibold text-gray-800 text-sm mb-1">  Max Price: ₹{maxPrice}</h2>
         <Slider
           value={maxPrice}
           onChange={(e, val) => setMaxPrice(val)}
@@ -250,7 +250,11 @@ function Shampooconditioner() {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-8">
+    <div className="bg-gray-50 min-h-screen">
+        <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl font-bold">Shampoo & Conditioner</h1>
+        <p className="mt-2 text-white/80 text-sm">Timeless Elegance for Every Occasion</p>
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumb */}
@@ -268,7 +272,7 @@ function Shampooconditioner() {
             onClick={() => setMobileFiltersOpen(true)} 
             className="flex items-center bg-white px-4 py-3 rounded-xl shadow-sm w-full justify-between border"
           >
-            <span className="font-bold text-sm text-gray-700">🧴 Refine Shampoo & Conditioner</span>
+            <span className="font-bold text-sm text-gray-700">Refine Shampoo & Conditioner</span>
             <Menu size={18} />
           </button>
         </div>
@@ -278,7 +282,7 @@ function Shampooconditioner() {
           <div className="md:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setMobileFiltersOpen(false)}>
             <div className="absolute top-0 left-0 w-80 h-full bg-white overflow-y-auto p-4 flex flex-col" onClick={(e) => e.stopPropagation()}>
               <div className="flex justify-between items-center border-b pb-3 mb-2">
-                <h2 className="font-black text-gray-800">🧴 Shampoo & Conditioner Filters</h2>
+                <h2 className="font-black text-gray-800"> Shampoo & Conditioner Filters</h2>
                 <button onClick={() => setMobileFiltersOpen(false)} className="text-gray-500 p-1"><X size={20} /></button>
               </div>
               <FilterSidebar />
@@ -292,40 +296,7 @@ function Shampooconditioner() {
           {/* Sidebar */}
           <aside className="w-full md:w-64 flex-shrink-0">
             {/* Categories Sidebar */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sticky top-24 mb-4">
-              <h2 className="font-bold text-lg text-gray-800 mb-4 pb-2 border-b border-gray-100">
-                Beauty Categories
-              </h2>
-              
-              <div className="space-y-4">
-                {beautyCategories.map((category, index) => (
-                  <div key={index}>
-                    <Link
-                      to={`/beauty/${category.slug}`}
-                      className="font-semibold text-orange-600 hover:text-orange-800 text-sm block mb-1"
-                    >
-                      {category.title}
-                    </Link>
-                    <ul className="space-y-0.5 pl-2">
-                      {category.items.map((item, i) => (
-                        <li key={i}>
-                          <Link
-                            to={`/beauty/${item.slug}`}
-                            className={`text-sm block py-0.5 hover:text-orange-600 ${
-                              item.slug === 'shampoo-conditioner' 
-                                ? 'text-orange-600 font-medium bg-orange-50 px-2 rounded' 
-                                : 'text-gray-600 hover:bg-gray-50 px-2 rounded'
-                            }`}
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
+  
 
             {/* Filter Sidebar - Hidden on mobile, visible on desktop */}
             <div className="hidden md:block">
@@ -337,7 +308,7 @@ function Shampooconditioner() {
           <main className="flex-1">
             {/* Sort and Count Bar */}
             <div className="bg-white rounded-xl p-3 mb-4 border border-gray-100 flex justify-between items-center shadow-sm">
-              <span className="text-xs text-gray-500 font-medium">
+              <span className="!text-xs !text-gray-500 !font-medium">
                 Found <span className="text-orange-600 font-bold">{filteredProducts.length}</span> shampoo & conditioner products
               </span>
               <select 

@@ -3,6 +3,7 @@ import ProductCard from "../ProductCard";
 import { loadAllProducts } from "../ProductsData";
 import { Slider } from "@mui/material";
 import { Link } from 'react-router-dom';
+
 // ✅ FILTER DATA - Fabric, Combo, Price
 const FILTER_CONFIG = {
   // Fabric Filter
@@ -139,9 +140,9 @@ function Briefs() {
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item)}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-3.5 h-3.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -149,9 +150,9 @@ function Briefs() {
     </div>
   );
 
-  // 🗂️ FILTER SIDEBAR COMPONENT
+  // 🗂️ FILTER SIDEBAR COMPONENT - Full Height wala
   const FilterSidebar = () => (
-    <div className="bg-white p-4 rounded-xl shadow-sm">
+    <div className="bg-white p-4 rounded-xl shadow-sm h-full min-h-[calc(100vh-200px)]">
       <div className="flex justify-between items-center mb-4 border-b pb-3">
         <h2 className="font-bold text-base text-gray-800">Filters</h2>
         <button onClick={clearAllFilters} className="text-orange-600 text-xs font-semibold hover:underline">Clear All</button>
@@ -204,22 +205,23 @@ function Briefs() {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-
+    <div className="bg-gray-100 min-h-screen flex flex-col">
+      
       {/* HEADER BANNER */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white text-center py-8">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-3xl font-bold">Men's Briefs Collection</h1>
         <p className="mt-2 text-white/80 text-sm">Comfortable & Breathable Everyday Essential</p>
       </div>
-      <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
-            <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
-            <span className="text-lg !font-medium">/</span>
-            <span className="text-lg !font-medium text-[#E4921A]">Men's Briefs</span>
-          </nav>
-          <h2 className="text-2xl !font-bold !mt-3 !mb-3 !pl-7">Men's Briefs</h2>
+      
+      <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7 flex-shrink-0">
+        <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
+        <span className="text-lg !font-medium">/</span>
+        <span className="text-lg !font-medium text-[#E4921A]">Men's Briefs</span>
+      </nav>
+      <h2 className="text-2xl !font-bold !mt-3 !mb-3 !pl-7 flex-shrink-0">Men's Briefs</h2>
 
       {/* MOBILE FILTER BUTTON */}
-      <div className="md:hidden px-4 pt-4">
+      <div className="md:hidden px-4 pt-4 flex-shrink-0">
         <button 
           onClick={() => setMobileFiltersOpen(true)} 
           className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm w-full justify-between border"
@@ -248,11 +250,12 @@ function Briefs() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto p-4">
-        <div className="flex gap-6">
+      {/* ✅ MAIN CONTENT - Flex grow with full height sidebar */}
+      <div className="flex-1 flex">
+        <div className="max-w-7xl mx-auto w-full px-4 py-4 flex gap-6">
           
-          {/* DESKTOP SIDEBAR */}
-          <div className="w-72 hidden md:block sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto">
+          {/* ✅ DESKTOP SIDEBAR - Full height, footer tak */}
+          <div className="w-72 hidden md:block sticky top-0 h-screen overflow-y-auto">
             <FilterSidebar />
           </div>
 

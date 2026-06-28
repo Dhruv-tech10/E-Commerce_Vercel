@@ -1,11 +1,11 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import ProductCard from "../ProductCard";
 import { loadAllProducts } from "../ProductsData";
 import { Slider } from "@mui/material";
 import { Link } from 'react-router-dom';
-// ✅ FILTER DATA - Fabric, Combo, Price
+
+// ✅ MOVE FILTER_CONFIG OUTSIDE COMPONENT (Recommended)
 const FILTER_CONFIG = {
-  // Fabric Filter
   fabric: [
     "Acrylic", "Art Silk", "Bamboo", "Chambray", "Chanderi Cotton",
     "Chanderi Silk", "Chiffon", "Cotton", "Cotton Blend", "Cotton Cambric",
@@ -15,8 +15,6 @@ const FILTER_CONFIG = {
     "Polyester", "Polypropylene", "Rayon", "Rayon Slub", "Satin",
     "Silk", "Silk Blend", "Soft Silk", "Viscose", "Viscose Rayon", "Wool"
   ],
-  
-  // Combo / Quantity Filter
   combo: [
     "Pack of 1", "Pack of 2", "Pack of 3", "Pack of 4", 
     "Pack of 5", "Pack of 6", "Single"
@@ -26,28 +24,19 @@ const FILTER_CONFIG = {
 function Vests() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // 🔥 PRICE RANGE STATE
   const [maxPrice, setMaxPrice] = useState(2000);
-  
-  // 🔥 SORT STATE
   const [sortBy, setSortBy] = useState("default");
-  
-  // 🔥 MOBILE FILTER STATE
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  
-  // 🔥 FILTER STATE (Sirf fabric aur combo)
   const [filters, setFilters] = useState({
     fabric: [],
     combo: []
   });
-  
-  // 🔥 ACCORDION SECTIONS STATE
   const [openSections, setOpenSections] = useState({
     fabric: true,
     combo: true
   });
 
+  // ✅ Fetch products - already correct
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -63,10 +52,40 @@ function Vests() {
       }
     };
     fetchData();
-  }, []);
+  }, []); // ✅ Empty array - runs once
+
+  // ✅ Memoize filtered products to avoid recalculations
+  const filteredProducts = useMemo(() => {
+    // Filter only Vests
+    let result = products.filter(
+      (p) => (p.category || "").toLowerCase().includes("vest")
+    );
+
+    // Apply price filter
+    result = result.filter((product) => product.offerPrice <= maxPrice);
+    
+    // Apply fabric filter
+    if (filters.fabric.length > 0) {
+      result = result.filter((product) => filters.fabric.includes(product.fabric));
+    }
+    
+    // Apply combo filter
+    if (filters.combo.length > 0) {
+      result = result.filter((product) => filters.combo.includes(product.combo));
+    }
+
+    // Apply sorting
+    if (sortBy === "price_low") {
+      result = [...result].sort((a, b) => a.offerPrice - b.offerPrice);
+    } else if (sortBy === "price_high") {
+      result = [...result].sort((a, b) => b.offerPrice - a.offerPrice);
+    }
+
+    return result;
+  }, [products, maxPrice, filters, sortBy]);
 
   // ✅ TOGGLE FILTER HANDLER
-  const handleFilterToggle = (key, value) => {
+  const handleFilterToggle = useCallback((key, value) => {
     setFilters((prev) => {
       const exists = prev[key].includes(value);
       return {
@@ -74,47 +93,19 @@ function Vests() {
         [key]: exists ? prev[key].filter((v) => v !== value) : [...prev[key], value]
       };
     });
-  };
+  }, []);
 
   // ✅ TOGGLE ACCORDION SECTION
-  const toggleSection = (section) => {
+  const toggleSection = useCallback((section) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
-  };
+  }, []);
 
-  const clearAllFilters = () => {
-    setFilters({
-      fabric: [],
-      combo: []
-    });
+  // ✅ CLEAR ALL FILTERS
+  const clearAllFilters = useCallback(() => {
+    setFilters({ fabric: [], combo: [] });
     setMaxPrice(2000);
     setSortBy("default");
-  };
-
-  // ✅ ONLY VESTS PRODUCTS
-  let filteredProducts = products.filter(
-    (p) => (p.category || "").toLowerCase().includes("vest")
-  );
-
-  // Apply all filters
-  filteredProducts = filteredProducts.filter((product) => {
-    // Price filter
-    if (product.offerPrice > maxPrice) return false;
-    
-    // Fabric filter
-    if (filters.fabric.length > 0 && !filters.fabric.includes(product.fabric)) return false;
-    
-    // Combo filter
-    if (filters.combo.length > 0 && !filters.combo.includes(product.combo)) return false;
-    
-    return true;
-  });
-
-  // Apply sorting
-  if (sortBy === "price_low") {
-    filteredProducts.sort((a, b) => a.offerPrice - b.offerPrice);
-  } else if (sortBy === "price_high") {
-    filteredProducts.sort((a, b) => b.offerPrice - a.offerPrice);
-  }
+  }, []);
 
   // 🧱 ACCORDION SECTION COMPONENT
   const AccordionSection = ({ title, sectionKey, items }) => (
@@ -143,9 +134,9 @@ function Vests() {
                 type="checkbox" 
                 checked={filters[sectionKey]?.includes(item)}
                 onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-3.5 h-3.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500" 
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -153,21 +144,17 @@ function Vests() {
     </div>
   );
 
-  // 🗂️ FILTER SIDEBAR COMPONENT
+  // 🗂️ FILTER SIDEBAR COMPONENT - Full Height wala
   const FilterSidebar = () => (
-    <div className="bg-white p-4 rounded-xl shadow-sm">
+    <div className="bg-white p-4 rounded-xl shadow-sm h-full min-h-[calc(100vh-200px)]">
       <div className="flex justify-between items-center mb-4 border-b pb-3">
         <h2 className="font-bold text-base text-gray-800">Filters</h2>
         <button onClick={clearAllFilters} className="text-orange-600 text-xs font-semibold hover:underline">Clear All</button>
       </div>
       
-      {/* Fabric Section */}
-      <AccordionSection title=" Fabric" sectionKey="fabric" items={FILTER_CONFIG.fabric} />
-      
-      {/* Combo Section */}
+      <AccordionSection title="Fabric" sectionKey="fabric" items={FILTER_CONFIG.fabric} />
       <AccordionSection title="Combo" sectionKey="combo" items={FILTER_CONFIG.combo} />
 
-      {/* Price Slider */}
       <div className="mb-4 pt-2">
         <h2 className="font-bold text-gray-800 text-sm mb-2">Max Price: ₹{maxPrice}</h2>
         <div className="px-1">
@@ -208,22 +195,24 @@ function Vests() {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-    
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       
       {/* HEADER BANNER */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white text-center py-8">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-3xl font-bold">Men's Vests Collection</h1>
         <p className="mt-2 text-white/80 text-sm">Comfortable & Breathable Vests for Daily Wear</p>
       </div>
-<nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
-            <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
-            <span className="text-lg !font-medium">/</span>
-            <span className="text-lg !font-medium text-[#E4921A]">Vests</span>
-          </nav>
-          <h2 className="text-2xl !font-bold !mt-3 !mb-3 !pl-7">Vests</h2>
+      
+      <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7 flex-shrink-0">
+        <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
+        <span className="text-lg !font-medium">/</span>
+        <span className="text-lg !font-medium text-[#E4921A]">Vests</span>
+      </nav>
+      
+      <h2 className="text-2xl !font-bold !mt-3 !mb-3 !pl-7 flex-shrink-0">Vests</h2>
+      
       {/* MOBILE FILTER BUTTON */}
-      <div className="md:hidden px-4 pt-4">
+      <div className="md:hidden px-4 pt-4 flex-shrink-0">
         <button 
           onClick={() => setMobileFiltersOpen(true)} 
           className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm w-full justify-between border"
@@ -252,11 +241,12 @@ function Vests() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto p-4">
-        <div className="flex gap-6">
+      {/* ✅ MAIN CONTENT - Flex grow with full height sidebar */}
+      <div className="flex-1 flex">
+        <div className="max-w-7xl mx-auto w-full px-4 py-4 flex gap-6">
           
-          {/* DESKTOP SIDEBAR */}
-          <div className="w-72 hidden md:block sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto">
+          {/* ✅ DESKTOP SIDEBAR - Full height, footer tak */}
+          <div className="w-72 hidden md:block sticky top-0 h-screen overflow-y-auto">
             <FilterSidebar />
           </div>
 

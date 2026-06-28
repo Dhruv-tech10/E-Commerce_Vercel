@@ -14,8 +14,8 @@ const FILTER_CONFIG = {
 
 // Sidebar configuration
 const SIDEBAR_SECTIONS = [
-  { title: "🧼 Soap Types", key: "soapTypes" },
-  { title: "🏷️ Brands", key: "brands" }
+  { title: " Soap Types", key: "soapTypes" },
+  { title: " Brands", key: "brands" }
 ];
 
 function Soap() {
@@ -105,16 +105,16 @@ function Soap() {
       </button>
 
       {openSections[sectionKey] && (
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
               <input
                 type="checkbox"
                 checked={filters[sectionKey]?.includes(item) || false}
                 onChange={() => handleFilterToggle(sectionKey, item)}
-                className="w-3.5 h-3.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500"
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500"
               />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -174,8 +174,8 @@ function Soap() {
     <div className="bg-gray-50 min-h-screen pb-12">
 
       {/* Header Hero Banner */}
-      <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-center py-12 px-4">
-        <h1 className="text-3xl md:text-4xl font-black tracking-wide">🧼 Soap</h1>
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl md:text-4xl font-black tracking-wide"> Soap</h1>
         <p className="mt-2 text-green-100 text-lg">Gentle cleansing for kids</p>
       </div>
       <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
@@ -239,7 +239,7 @@ function Soap() {
 
             {filteredProducts.length === 0 ? (
               <div className="bg-white rounded-xl border p-12 text-center shadow-sm text-gray-400 font-medium text-sm">
-                <div className="text-5xl mb-3">🧼</div>
+                <div className="text-5xl mb-3"></div>
                 No soap products found matching your criteria.
                 <button onClick={clearAllFilters} className="text-orange-600 block text-xs font-bold mt-2 mx-auto underline">Clear Filters</button>
               </div>

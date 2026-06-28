@@ -18,7 +18,7 @@ function ArtificialFlowers() {
   const [maxPrice, setMaxPrice] = useState(3000);
   const [sortBy, setSortBy] = useState("default");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  
+
   const [filters, setFilters] = useState({ material: [], color: [], sizes: [], brands: [] });
   const [openSections, setOpenSections] = useState({ material: true, color: true, sizes: true, brands: true });
 
@@ -50,8 +50,8 @@ function ArtificialFlowers() {
     setSortBy("default");
   };
 
-  let filteredProducts = products.filter(p => 
-    p.category?.toLowerCase() === "artificialplants" || 
+  let filteredProducts = products.filter(p =>
+    p.category?.toLowerCase() === "artificialplants" ||
     p.subCategory?.toLowerCase() === "artificial-plants" ||
     p.name?.toLowerCase().includes("artificial plant")
   );
@@ -75,12 +75,12 @@ function ArtificialFlowers() {
         {openSections[sectionKey] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>
       {openSections[sectionKey] && (
-        <div className="space-y-2 max-h-60 overflow-y-auto">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1 ">
           {items.map((item, i) => (
             <label key={i} className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" checked={filters[sectionKey]?.includes(item)} onChange={() => handleFilterToggle(sectionKey, item)} 
-                className="w-3.5 h-3.5 rounded border-gray-300 text-green-600" />
-              <span className="text-gray-600 text-xs">{item}</span>
+              <input type="checkbox" checked={filters[sectionKey]?.includes(item)} onChange={() => handleFilterToggle(sectionKey, item)}
+                className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-green-600" />
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -110,16 +110,16 @@ function ArtificialFlowers() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white text-center py-12">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-4xl font-bold">Artificial Plants Collection</h1>
         <p className="mt-2 text-white/80">Lifelike artificial plants for home decor</p>
       </div>
-       <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
-            <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
-            <span className="text-lg !font-medium">/</span>
-            <span className="text-lg !font-medium text-[#E4921A]">Artificial Flowers</span>
-          </nav>
-          <h2 className="text-2xl !font-bold !mt-3 !mb-3 !pl-7">Artificial Flowers</h2>
+      <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
+        <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
+        <span className="text-lg !font-medium">/</span>
+        <span className="text-lg !font-medium text-[#E4921A]">Artificial Flowers</span>
+      </nav>
+      <h2 className="text-2xl !font-bold !mt-3 !mb-3 !pl-7">Artificial Flowers</h2>
       <div className="md:hidden px-4 pt-4">
         <button onClick={() => setMobileFiltersOpen(true)} className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm w-full justify-between border">
           <span className="font-medium text-gray-700">Filters</span><Menu size={20} />
@@ -139,7 +139,7 @@ function ArtificialFlowers() {
         <div className="flex gap-6">
           <div className="w-72 hidden md:block sticky top-20">
             <FilterSidebar />
-            </div>
+          </div>
           <div className="flex-1">
             <div className="bg-white rounded-xl p-3 mb-4 flex justify-between items-center">
               <span className="text-xs">Showing {filteredProducts.length} products</span>

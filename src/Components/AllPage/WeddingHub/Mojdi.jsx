@@ -108,16 +108,16 @@ function Mojdi() {
           {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </button>
         {isOpen && (
-          <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
             {items.map((item, index) => (
               <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors">
                 <input 
                   type="checkbox" 
                   checked={filters[sectionKey]?.includes(item) || false} 
                   onChange={() => handleFilterToggle(sectionKey, item)} 
-                  className="w-3.5 h-3.5 rounded border-gray-300 text-red-600 focus:ring-red-500" 
+                  className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-red-600 focus:ring-red-500" 
                 />
-                <span className="text-gray-600 text-xs">{item}</span>
+                <span className="text-gray-600 !text-sm">{item}</span>
               </label>
             ))}
           </div>
@@ -182,7 +182,7 @@ function Mojdi() {
     <div className="bg-gray-50 min-h-screen font-sans">
       
       {/* 🔴 ETHNIC DESIGN HOUSING JUMBOTRON GRAPHICS BANNER DETAILS STRUCTURE */}
-      <div className="bg-gradient-to-r from-red-600 to-rose-700 text-white text-center py-10 shadow-inner">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Royal Mojdi & Jutti Collection</h1>
         <p className="mt-1.5 text-sm text-white/80">Premium handcrafted wedding footwears, Punjabi Juttis and traditional sherwani shoes for grooms</p>
       </div>
@@ -258,7 +258,7 @@ function Mojdi() {
             {/* Dynamic content checker validation fallback arrays looping matching conditional matrix frames */}
             {filteredProducts.length === 0 ? (
               <div className="bg-white rounded-xl border border-gray-100 py-16 px-4 text-center shadow-sm text-gray-400 font-medium text-sm">
-                <div className="text-4xl mb-2">👞</div>
+                <div className="text-4xl mb-2"></div>
                 <h3 className="text-lg font-bold text-gray-700 mb-1">No Footwear Found</h3>
                 <p className="text-gray-500 text-xs mb-3">Try altering some checked parameter combinations configuration options variables setup.</p>
                 <button onClick={clearAllFilters} className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 text-xs font-semibold rounded-lg shadow transition-colors">

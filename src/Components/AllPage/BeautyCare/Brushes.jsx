@@ -64,6 +64,10 @@ function Brushes() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
+      <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl font-bold">Brushes</h1>
+        <p className="mt-2 text-white/80 text-sm">Timeless Elegance for Every Occasion</p>
+      </div>
         <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
                 <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
                 <span className="text-lg !font-medium">/</span>
@@ -83,14 +87,14 @@ function Brushes() {
           </div>
 
           {Object.entries(FILTER_CONFIG).map(([section, items]) => (
-            <div key={section} className="mb-4">
-              <h3 className="font-semibold text-sm mb-2 capitalize">
+            <div key={section} className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
+              <h3 className="!font-semibold text-base mb-2 capitalize">
                 {section}
               </h3>
 
               {items.map((item, i) => (
-                <label key={i} className="block text-sm">
-                  <input type="checkbox" className="mr-2" />
+                <label key={i} className="block !text-sm">
+                  <input type="checkbox" className="mr-2 !mr-2" />
                   {item}
                 </label>
               ))}
@@ -102,9 +106,7 @@ function Brushes() {
         {/* PRODUCTS */}
         <div className="flex-1">
 
-          <h1 className="text-3xl font-bold mb-6">
-            Makeup Brush
-          </h1>
+         
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 

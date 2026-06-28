@@ -142,7 +142,7 @@ export const homeKitchenProducts = [
 ];
 
 // ============================================
-// 👑 WEDDING PRODUCTS (Yeh missing tha, ab fix kar diya)
+// 👑 WEDDING PRODUCTS
 // ============================================
 export const weddingProducts = [
   { id: 901, name: "Bridal Lehenga - Royal Red", category: "Wedding", price: 14999, offerPrice: 11999, sizes: ["M","L","XL"], brand: "Manyavar", rating: 4.9 },
@@ -161,7 +161,7 @@ const productGroups = [
   { data: groceryProducts, prefix: "grocery" },
   { data: brandsProducts, prefix: "brands" },
   { data: homeKitchenProducts, prefix: "home" },
-  { data: weddingProducts, prefix: "wedding" } // Yeh bhi add kar diya
+  { data: weddingProducts, prefix: "wedding" }
 ];
 
 export const loadAllProducts = async () => {
@@ -180,7 +180,7 @@ export const loadCategoryProducts = async (category) => {
 };
 
 // ============================================
-// 🛠️ HELPER FUNCTIONS
+// 🛠️ HELPER FUNCTIONS - UPDATED WITH LIVE STATS
 // ============================================
 const getAllProducts = () => {
   const all = [];
@@ -195,6 +195,23 @@ export const getProductById = (id) => {
   return allProducts.find(product => String(product.id) === String(id));
 };
 
+// 🌟 NEW: Get product with live stats from localStorage
+export const getProductByIdWithLiveStats = (id) => {
+  const product = getProductById(id);
+  if (!product) return null;
+  
+  // Check if we have live stats in localStorage
+  const liveStats = JSON.parse(localStorage.getItem(`product-stats-${id}`));
+  if (liveStats) {
+    product.rating = liveStats.rating;
+    product.reviews = liveStats.reviews;
+  } else {
+    // Set default reviews if not present
+    if (!product.reviews) product.reviews = Math.floor(Math.random() * 40) + 10;
+  }
+  return product;
+};
+
 export const getRelatedProducts = (category, currentId) => {
   const allProducts = getAllProducts();
   return allProducts.filter(
@@ -202,11 +219,124 @@ export const getRelatedProducts = (category, currentId) => {
   );
 };
 
+// ============================================
+// ⭐ REVIEW SYSTEM
+// ============================================
+
+// User review submit karne ka system
+export const submitProductReview = (productId, newRating, reviewText, username = "Anonymous User") => {
+  // 1. Pehle all products load karein
+  const allProducts = getAllProducts();
+  const productIndex = allProducts.findIndex(p => String(p.id) === String(productId));
+  
+  if (productIndex === -1) return null;
+  
+  const product = allProducts[productIndex];
+  
+  // 2. Local Storage se check karein agar pehle se is product ke reviews saved hain
+  const storedReviewsKey = `reviews-${productId}`;
+  const existingReviews = JSON.parse(localStorage.getItem(storedReviewsKey)) || [];
+  
+  // Naya review object
+  const newReviewObj = {
+    id: Date.now(),
+    username: username,
+    rating: Number(newRating),
+    comment: reviewText,
+    date: new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })
+  };
+  
+  const updatedReviews = [newReviewObj, ...existingReviews];
+  localStorage.setItem(storedReviewsKey, JSON.stringify(updatedReviews));
+  
+  // 3. New Rating aur Total Review Count calculate karein (Real Mathematics)
+  const currentTotalReviews = product.reviews || 0;
+  const currentAvgRating = product.rating || 0;
+  
+  const newTotalReviews = currentTotalReviews + 1;
+  const newAvgRating = ((currentAvgRating * currentTotalReviews) + Number(newRating)) / newTotalReviews;
+  
+  // 4. Product details update karke Local Storage mein persist karein
+  const productRatingsKey = `product-stats-${productId}`;
+  const updatedStats = {
+    rating: parseFloat(newAvgRating.toFixed(1)),
+    reviews: newTotalReviews
+  };
+  
+  localStorage.setItem(productRatingsKey, JSON.stringify(updatedStats));
+  
+  return {
+    updatedStats,
+    updatedReviews
+  };
+};
+
+// Get reviews for a specific product
+export const getProductReviews = (productId) => {
+  const storedReviewsKey = `reviews-${productId}`;
+  const reviews = JSON.parse(localStorage.getItem(storedReviewsKey)) || [];
+  return reviews;
+};
+
+// Get product stats (rating & review count) from localStorage
+export const getProductStats = (productId) => {
+  const stats = JSON.parse(localStorage.getItem(`product-stats-${productId}`));
+  if (stats) return stats;
+  
+  // Fallback: get from product data
+  const product = getProductById(productId);
+  if (product) {
+    return {
+      rating: product.rating || 0,
+      reviews: product.reviews || 0
+    };
+  }
+  return { rating: 0, reviews: 0 };
+};
+
+// ============================================
+// 📊 BULK PRODUCT STATS UPDATE
+// ============================================
+export const syncAllProductStats = () => {
+  const allProducts = getAllProducts();
+  const results = {};
+  
+  allProducts.forEach(product => {
+    const stats = getProductStats(product.id);
+    results[product.id] = stats;
+  });
+  
+  return results;
+};
+
+// ============================================
+// 🧹 CLEAR ALL REVIEWS (For testing)
+// ============================================
+export const clearAllReviews = () => {
+  const allProducts = getAllProducts();
+  let count = 0;
+  
+  allProducts.forEach(product => {
+    const reviewKey = `reviews-${product.id}`;
+    const statsKey = `product-stats-${product.id}`;
+    
+    if (localStorage.getItem(reviewKey)) {
+      localStorage.removeItem(reviewKey);
+      count++;
+    }
+    if (localStorage.getItem(statsKey)) {
+      localStorage.removeItem(statsKey);
+    }
+  });
+  
+  return `Cleared ${count} products' reviews`;
+};
+
 // Individual load functions (for backward compatibility)
 export const loadAllWomenProducts = () => loadCategoryProducts(womenProducts);
 export const loadAllKidsProducts = () => loadCategoryProducts(kidsProducts);
 export const loadAllBeautyProducts = () => loadCategoryProducts(beautyProducts);
 export const loadAllElectronicsProducts = () => loadCategoryProducts(electronicsProducts);
-export const loadAllWeddingProducts = () => loadCategoryProducts(weddingProducts); // Sahi array se return hoga ab
+export const loadAllWeddingProducts = () => loadCategoryProducts(weddingProducts);
 export const loadAllBrandsProducts = () => loadCategoryProducts(brandsProducts);
 export const loadAllHomeKitchenProducts = () => loadCategoryProducts(homeKitchenProducts);

@@ -1,17 +1,19 @@
 // src/Components/Header/Header.jsx
 import { useState, useEffect, useRef } from 'react';
 import Logo from '../../assets/Img/Header/Logo.png';
-import { Link, useNavigate } from "react-router-dom"; // ✅ useNavigate એડ કર્યું રીડાયરેક્ટ કરવા માટે
+import { Link, useNavigate } from "react-router-dom";
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-
+import { useAuth } from '../../Context/AuthContext';
 import { getWishlistCount } from '../WishlistUtils';
 import { useCart } from '../../Context/CartContext';
 
 export default function Header() {
+  const { isAuthenticated, user, logout, openAuthModal } = useAuth();
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -19,11 +21,9 @@ export default function Header() {
   const profileContainerRef = useRef(null);
   const [activeCategoryDropdown, setActiveCategoryDropdown] = useState(null);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [userName, setUserName] = useState("");
   const [wishlistCount, setWishlistCount] = useState(0);
 
-  const navigate = useNavigate(); // ✅ પ્રોગ્રામેટિક નેવિગેશન માટે
-
+  const navigate = useNavigate();
   const { cartCount } = useCart();
 
   const categories = [
@@ -50,7 +50,7 @@ export default function Header() {
             { name: "Cookware", path: "/home-kitchen/Cookware" },
             { name: "Kitchen Tools", path: "/home-kitchen/Kitchen Tools" },
             { name: "Dinner Set", path: "/home-kitchen/Dinner Set" },
-             { name: "Kitchen Appliances", path: "/home-kitchen/Kitchen Appliances" },
+            { name: "Kitchen Appliances", path: "/home-kitchen/Kitchen Appliances" },
             { name: "Glasses & Barware", path: "/home-kitchen/Glasses & Barware" },
           ]
         },
@@ -76,7 +76,7 @@ export default function Header() {
             { name: "Water Bottle", path: "/home-kitchen/Water Bottle" },
           ]
         },
-         {
+        {
           title: "Accessories",
           items: [
             { name: "Bathroom Accessiors", path: "/home-kitchen/Bathroom Accessiors" },
@@ -84,7 +84,7 @@ export default function Header() {
             { name: "Curtain Accessories", path: "/home-kitchen/Curtain Accessories" },
             { name: "Shop Bedsheets", path: "/home-kitchen/Shop Bedsheets" },
             { name: "Carpets & Doormats", path: "/home-kitchen/Carpets & Doormats" },
-              { name: "Blankets & Comforters", path: "/home-kitchen/Blankets & Comforters" },
+            { name: "Blankets & Comforters", path: "/home-kitchen/Blankets & Comforters" },
             { name: "Insect Protection", path: "/home-kitchen/Insect Protection" },
             { name: "Home Textiles", path: "/home-kitchen/Home Textiles" },
           ]
@@ -129,7 +129,7 @@ export default function Header() {
             { name: "Party Wear", path: "/men-fashion/Party Wear" }
           ]
         },
-         {
+        {
           title: "Sleep Wear",
           items: [
             { name: "NightShorts", path: "/men-fashion/NightShorts" },
@@ -157,9 +157,8 @@ export default function Header() {
             { name: "Jewellery", path: "/men-fashion/Jewellery" },
             { name: "Perfume", path: "/men-fashion/Perfume" },
             { name: "Facewash", path: "/men-fashion/Facewash" },
-               { name: "Partywearshoes", path: "/men-fashion/MenPartywearshoes" },
+            { name: "Partywearshoes", path: "/men-fashion/MenPartywearshoes" },
             { name: "Sports Shoes", path: "/men-fashion/Sports Shoes" },
-               { name: "Partywearshoes", path: "/men-fashion/MenPartywearshoes" },
           ]
         },
       ]
@@ -174,13 +173,12 @@ export default function Header() {
             { name: "Tunic & Top", path: "/women-fashion/Tunic & Top" },
             { name: "Shirt", path: "/women-fashion/Shirt" },
             { name: "Dresses", path: "/women-fashion/Dresses" },
-             { name: "Gowns", path: "/women-fashion/Gowns" },
+            { name: "Gowns", path: "/women-fashion/Gowns" },
             { name: "Dupatta", path: "/women-fashion/Dupatta" },
             { name: "Saree", path: "/women-fashion/Saree" },
             { name: "Jumpsuit", path: "/women-fashion/Jumpsuit" },
             { name: "Kurtie", path: "/women-fashion/Kurtie" },
             { name: "Blouses", path: "/women-fashion/Blouses" },
-  
           ]
         },
         {
@@ -193,7 +191,7 @@ export default function Header() {
             { name: "Pants & Trouser", path: "/women-fashion/Pants & Trouser" }
           ]
         },
-         {
+        {
           title: "Winter Wear",
           items: [
             { name: "Jackets", path: "/women-fashion/Jackets" },
@@ -224,11 +222,11 @@ export default function Header() {
             { name: "Bracelets", path: "/women-fashion/Bracelets" },
             { name: "Jwellery", path: "/women-fashion/Jwellery" },
             { name: "Earrings", path: "/women-fashion/Earrings" },
-             { name: "Watch", path: "/women-fashion/Watch" },
+            { name: "Watch", path: "/women-fashion/Watch" },
             { name: "Necklace", path: "/women-fashion/Necklace" },
             { name: "Facewash", path: "/women-fashion/Facewash" },
             { name: "Perfumes", path: "/women-fashion/Perfumes" },
-             { name: "SunGlasses", path: "/women-fashion/SunGlasses" },
+            { name: "SunGlasses", path: "/women-fashion/SunGlasses" },
           ]
         }
       ]
@@ -504,7 +502,7 @@ export default function Header() {
     },
   ];
 
-  // ✅ રીઝલ્ટ ફિલ્ટર કરવા માટે બધી કેટેગરીઝ ના ડેટાને ફ્લેટ એરે માં કન્વર્ટ કર્યો
+  // ✅ Get all searchable items
   const getAllSearchableItems = () => {
     let list = [];
     categories.forEach(category => {
@@ -528,25 +526,25 @@ export default function Header() {
 
   const searchableItems = getAllSearchableItems();
 
-  // ✅ સર્ચ ક્વેરી મુજબ ડેટા ફિલ્ટર
+  // ✅ Filter suggestions
   const filteredSuggestions = searchableItems.filter(item =>
     item.text.toLowerCase().includes(searchQuery.toLowerCase()) ||
     item.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
-useEffect(() => {
-  const name = localStorage.getItem("userName");
-  if (name) setUserName(name);
 
-  setWishlistCount(getWishlistCount());
+  // ✅ Update wishlist count and user name from auth
+  useEffect(() => {
+    setWishlistCount(getWishlistCount());
 
-  const handleWishlistUpdate = () => {
-    setWishlistCount(getWishlistCount()); // ✅ Yahan fix karo
-  };
+    const handleWishlistUpdate = () => {
+      setWishlistCount(getWishlistCount());
+    };
 
-  window.addEventListener('wishlistUpdated', handleWishlistUpdate);
-  return () => window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
-}, []);
+    window.addEventListener('wishlistUpdated', handleWishlistUpdate);
+    return () => window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
+  }, []);
 
+  // ✅ Click outside handler
   useEffect(() => {
     function handleClickOutside(event) {
       if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
@@ -557,7 +555,7 @@ useEffect(() => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // ✅ સર્ચ સબમિટ પર જો પહેલું રીઝલ્ટ હોય ત્યાં રીડાયરેક્ટ થાય
+  // ✅ Search submit handler
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (filteredSuggestions.length > 0 && searchQuery.trim() !== "") {
@@ -566,18 +564,74 @@ useEffect(() => {
     }
   };
 
+  // ✅ Logout handler with AuthContext
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    window.location.reload();
+  };
+
+  // ✅ NAYA CODE (Ye daalo)
+const handleDeleteAccount = () => {
+  if (window.confirm('⚠️ Are you sure you want to permanently delete your account?\n\nThis action cannot be undone.')) {
+    try {
+      // Get current user
+      const userData = JSON.parse(localStorage.getItem('velora_user') || '{}');
+      const userEmail = userData.email || localStorage.getItem('userEmail');
+      
+      if (!userEmail) {
+        alert('No user found to delete');
+        return;
+      }
+
+      // Remove user from users list
+      const users = JSON.parse(localStorage.getItem('velora_users') || '[]');
+      const updatedUsers = users.filter(u => u.email !== userEmail);
+      localStorage.setItem('velora_users', JSON.stringify(updatedUsers));
+
+      // Clear all auth data
+      const keysToRemove = [
+        'velora_user',
+        'velora_token', 
+        'userName',
+        'userEmail',
+        'velora_reset_data',
+        'velora_reset_verified'
+      ];
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+
+      // Call logout
+      logout();
+
+      // Redirect
+      navigate('/');
+      setTimeout(() => window.location.reload(), 100);
+
+      alert('✅ Account deleted successfully');
+      
+    } catch (error) {
+      console.error('Delete account error:', error);
+      alert('❌ Failed to delete account');
+    }
+  }
+};
+
+  // ✅ Get user name from auth context
+  const userName = user?.name || localStorage.getItem("userName") || "User";
+
   return (
     <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
       {/* Top Row: Logo, Search, and Actions */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3 md:gap-5">
 
-        {/* Logo Section */}
-        <div className="w-53 !h-30px items-center cursor-pointer">
+        <Link to="/" className="w-53 !h-30px flex items-center cursor-pointer decoration-none">
           <img src={Logo} alt="Logo" className="w-99" />
-        </div>
+        </Link>
 
         {/* Search Bar */}
-        <div ref={searchContainerRef} className="hidden md:block relative w-full max-w-xl mx-auto">
+
+
+        {/* <div ref={searchContainerRef} className="hidden md:block relative w-full max-w-xl mx-auto">
           <form onSubmit={handleSearchSubmit} className="w-full h-12 flex items-center bg-[#1e2d42] rounded-md pl-4 pr-2 overflow-hidden">
             <button type="submit" className="text-gray-400 hover:text-amber-500 p-3 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500/50 flex-shrink-0" aria-label="Submit search">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -594,7 +648,6 @@ useEffect(() => {
             />
           </form>
 
-          {/* Search Dropdown */}
           {isSearchFocused && searchQuery.trim() !== "" && (
             <div className="absolute top-full left-0 w-full mt-1.5 bg-white border border-gray-200 shadow-2xl rounded-md overflow-hidden z-50">
               <ul className="max-h-64 overflow-y-auto divide-y divide-gray-50">
@@ -609,15 +662,12 @@ useEffect(() => {
                         }}
                         className="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-slate-50 transition-colors text-sm text-slate-700 !no-underline"
                       >
-                        {/* ડાબી બાજુ: આઇકોન અને પ્રોડક્ટનું નામ */}
                         <div className="flex items-center gap-3">
                           <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                           </svg>
                           <span className="font-medium text-slate-800">{item.text}</span>
                         </div>
-
-                        {/* જમણી બાજુ (Last માં): સબ-ટાઈટલ બ્રેકેટ ટેક્સ્ટ */}
                         <span className="text-xs text-gray-400 font-normal">
                           ({item.subTitle})
                         </span>
@@ -632,7 +682,69 @@ useEffect(() => {
               </ul>
             </div>
           )}
-        </div>
+        </div> */}
+
+
+        {/* Search Bar */}
+<div ref={searchContainerRef} className="hidden md:block relative w-full max-w-xl mx-auto">
+  <form onSubmit={handleSearchSubmit} className="w-full h-12 flex items-center bg-[#1e2d42] rounded-md pl-4 pr-2 overflow-hidden">
+    <button type="submit" className="text-gray-400 hover:text-amber-500 p-3 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500/50 flex-shrink-0" aria-label="Submit search">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </button>
+    <input
+      type="search"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      onFocus={() => setIsSearchFocused(true)}
+      className="w-full h-full bg-transparent text-sm text-white placeholder-gray-400 ml-3.5 focus:outline-none"
+      placeholder="Search products, brands and more..."
+    />
+  </form>
+
+  {/* Search Dropdown */}
+  {isSearchFocused && searchQuery.trim() !== "" && (
+    <div className="absolute top-full left-0 w-full mt-1.5 bg-white border border-gray-200 shadow-2xl rounded-md overflow-hidden z-50">
+      <ul className="max-h-64 overflow-y-auto divide-y divide-gray-50">
+        {filteredSuggestions.length > 0 ? (
+          filteredSuggestions.map((item, index) => (
+            <li key={index}>
+              <Link
+                to={item.path}
+                onClick={() => {
+                  setSearchQuery(item.text);
+                  setIsSearchFocused(false);
+                }}
+                className="w-full text-left px-4 py-3 flex items-center justify-between hover:bg-slate-50 transition-colors text-sm text-slate-700 !no-underline"
+              >
+                <div className="flex items-center gap-3">
+                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+                  {/* જો કેટેગરી કે સબટાઈટલ મેચ થયું હોય તો યુઝરને ખબર પડે એટલા માટે અમે item.text બતાવીએ છીએ */}
+                  <span className="font-medium text-slate-800">{item.text}</span>
+                </div>
+                <div className="flex flex-col items-end gap-0.5">
+                  <span className="text-xs text-amber-600 font-semibold bg-amber-50 px-1.5 py-0.5 rounded">
+                    {item.category}
+                  </span>
+                  <span className="text-[10px] text-gray-400 font-normal">
+                    ({item.subTitle})
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))
+        ) : (
+          <div className="p-4 text-center text-sm text-gray-400">
+            No results found for "{searchQuery}"
+          </div>
+        )}
+      </ul>
+    </div>
+  )}
+</div>
 
         {/* User Actions */}
         <div className="flex items-center gap-4 sm:gap-6 flex-shrink-0">
@@ -651,34 +763,48 @@ useEffect(() => {
               <div className="absolute left-1/2 -translate-x-1/2 top-full !pt-[40px] z-50">
                 <div className="w-72 bg-white rounded-md shadow-xl border border-gray-100 overflow-hidden text-left !py-5 !px-6">
                   <div>
-                    <h3 className='!text-[24px]'>Hello {userName || "User"}</h3>
+                    <h3 className='!text-[24px]'>Hello {userName}</h3>
                   </div>
-                  <p className="text-[15px] text-gray-500 mb-3">To access your Velora Hub account</p>
+                  <p className="text-[15px] text-gray-500 mb-3">
+                    {isAuthenticated ? 'Manage your account' : 'To access your Velora Hub account'}
+                  </p>
 
-                  <Link to="/login" className="block w-full bg-[#1E2D42] text-white font-bold text-center my-3 !py-2.5 rounded-md transition-colors !no-underline">
-                    Sign Up
-                  </Link>
+                  {!isAuthenticated ? (
+                    <>
+                      <button 
+                        onClick={() => openAuthModal('login')}
+                        className="block w-full bg-[#1E2D42] text-white font-bold text-center my-3 !py-2.5 rounded-md transition-colors !no-underline"
+                      >
+                        Sign In / Sign Up
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/account/orders" className="flex items-center gap-3 !py-2 text-slate-700 font-semibold hover:text-[#9c27b0] transition-colors !no-underline text-sm">
+                        <ShoppingBagOutlinedIcon className="w-5 h-5 !text-[#1E2D42] !text-[17px] text-gray-500" />
+                        <span className='text-[#1E2D42] !text-[17px]'>My Orders</span>
+                      </Link>
 
-                  <hr className="border-gray-100 my-2" />
+                      <hr className="border-gray-100 my-2" />
 
-                  <Link to="/account/orders" className="flex items-center gap-3 !py-2 text-slate-700 font-semibold hover:text-[#9c27b0] transition-colors !no-underline text-sm">
-                    <ShoppingBagOutlinedIcon className="w-5 h-5 !text-[#1E2D42] !text-[17px] text-gray-500" />
-                    <span className='text-[#1E2D42] !text-[17px]'>My Orders</span>
-                  </Link>
+                      <button 
+                        onClick={handleDeleteAccount}
+                        className="w-full flex items-center gap-3 py-2 text-slate-700 font-semibold hover:text-red-600 transition-colors text-sm text-left"
+                      >
+                        <DeleteOutlineOutlinedIcon className="w-5 h-5 !text-[#1E2D42] !text-[17px] text-gray-500" />
+                        <span className='text-[#1E2D42] !text-[17px]'>Delete Account</span>
+                      </button>
 
-                  <hr className="border-gray-100 my-2" />
+                      <hr className="border-gray-100 my-2" />
 
-                  <button onClick={() => alert('Account Delete request submitted')} className="w-full flex items-center gap-3 py-2 text-slate-700 font-semibold hover:text-red-600 transition-colors text-sm text-left">
-                    <DeleteOutlineOutlinedIcon className="w-5 h-5 !text-[#1E2D42] !text-[17px] text-gray-500" />
-                    <span className='text-[#1E2D42] !text-[17px]'>Delete Account</span>
-                  </button>
-
-                  <button onClick={() => {
-                    localStorage.removeItem("userName");
-                    window.location.reload();
-                  }} className="block w-full bg-[#1E2D42] text-white font-bold text-center my-3 !py-2.5 !rounded-md transition-colors !no-underline">
-                    Logout
-                  </button>
+                      <button 
+                        onClick={handleLogout}
+                        className="block w-full bg-red-600 text-white font-bold text-center my-3 !py-2.5 rounded-md transition-colors hover:bg-red-700 !no-underline"
+                      >
+                        Logout
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -704,9 +830,22 @@ useEffect(() => {
             )}
           </Link>
 
-          <Link to='/login' className="!px-10 !py-[10px] !no-underline !ml-4 !font-bold !text-[17px] rounded-lg border !border-[#1a2d42] bg-[#f9fcff] !text-[#1a2d42] shadow-sm transition-all duration-300">
-            LOGIN
-          </Link>
+  {/* Login / Logout Button */}
+{isAuthenticated ? (
+  <button 
+    onClick={handleLogout}
+    className="!px-10 !py-[10px] !no-underline !ml-4 font-extrabold text-[17px] rounded-lg border-2 border-red-500 bg-white !text-red-500 shadow-sm transition-all duration-300 hover:!bg-red-500 hover:!text-white"
+  >
+    LOGOUT
+  </button>
+) : (
+  <button 
+    onClick={() => openAuthModal('login')}
+    className="!px-10 !py-[10px] !no-underline !ml-4 font-extrabold text-[17px] rounded-lg border-2 border-red-500 bg-white !text-red-500 shadow-sm transition-all duration-300 hover:!bg-red-500 hover:!text-white"
+  >
+    LOGIN
+  </button>
+)}
 
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-slate-700 hover:text-amber-500 transition-colors lg:hidden focus:outline-none" aria-label="Toggle navigation menu">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -751,8 +890,8 @@ useEffect(() => {
                 </div>
 
                 {hasDropdownData && (
-                  <div className={`absolute left-1/2 -translate-x-1/2 mt-3 !px-5 min-w-[1150px] bg-white text-gray-800 border border-gray-100 rounded-lg shadow-2xl transition-all duration-200 z-50 !py-6 !px-8 ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-2 pointer-events-none"}`}>
-                    <div className="flex gap-x-13 overflow-hidden rounded-lg">
+                  <div className={`absolute left-1/2 -translate-x-1/2 mt-3  min-w-[1150px] bg-white text-gray-800 border border-gray-100 rounded-lg shadow-2xl transition-all duration-200 z-50 !py-2 !px-2 ${isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-2 pointer-events-none"}`}>
+                    <div className="flex gap-x-9 overflow-hidden rounded-lg">
                       {item.dropdownData.map((subCategory, idx) => (
                         <div key={idx} className="p-6 min-h-[320px]">
                           <h4 className="!text-[#FEBB48] !text-[20px] !font-bold mb-3">
@@ -787,9 +926,21 @@ useEffect(() => {
             </div>
           ))}
           <div className="pt-4 pb-2 sm:hidden">
-            <Link to="/login" className="block w-full text-center py-2.5 font-bold tracking-wider text-[#1e2d42] uppercase border-2 border-[#1e2d42] rounded hover:bg-[#1e2d42] hover:text-white transition-all text-sm">
-              Login
-            </Link>
+            {isAuthenticated ? (
+              <button 
+                onClick={handleLogout}
+                className="block w-full text-center py-2.5 font-bold tracking-wider text-red-600 uppercase border-2 border-red-600 rounded hover:bg-red-600 hover:text-white transition-all text-sm"
+              >
+                Logout
+              </button>
+            ) : (
+              <button 
+                onClick={() => openAuthModal('login')}
+                className="block w-full text-center py-2.5 font-bold tracking-wider text-[#1e2d42] uppercase border-2 border-[#1e2d42] rounded hover:bg-[#1e2d42] hover:text-white transition-all text-sm"
+              >
+                Login
+              </button>
+            )}
           </div>
         </div>
       )}

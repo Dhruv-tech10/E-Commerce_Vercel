@@ -58,12 +58,12 @@ function FaceWash() {
         {openSections[sectionKey] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>
       {openSections[sectionKey] && (
-        <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1">
           {items.map((item, index) => (
             <label key={index} className="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
               <input type="checkbox" checked={filters[sectionKey]?.includes(item) || false}
-                onChange={() => handleFilterToggle(sectionKey, item)} className="w-3.5 h-3.5 rounded border-gray-300 text-orange-600 focus:ring-orange-500" />
-              <span className="text-gray-600 text-xs">{item}</span>
+                onChange={() => handleFilterToggle(sectionKey, item)} className="w-3.5 h-3.5 !mr-2 rounded border-gray-300 text-orange-600 focus:ring-orange-500" />
+              <span className="text-gray-600 !text-sm">{item}</span>
             </label>
           ))}
         </div>
@@ -78,8 +78,8 @@ function FaceWash() {
         <button onClick={clearAllFilters} className="text-orange-600 text-xs font-semibold hover:underline">Clear All</button>
       </div>
 
-      <AccordionSection title="🧵 Fabric" sectionKey="fabrics" items={FILTER_CONFIG.fabrics} />
-      <AccordionSection title="📦 Combo" sectionKey="combos" items={FILTER_CONFIG.combos} />
+      <AccordionSection title=" Fabric" sectionKey="fabrics" items={FILTER_CONFIG.fabrics} />
+      <AccordionSection title=" Combo" sectionKey="combos" items={FILTER_CONFIG.combos} />
 
       {/* 🎨 PRICE RANGE SLIDER - LIKE IMAGE 2 */}
       <div className="mb-4 border-b border-gray-100 pb-3">
@@ -91,6 +91,10 @@ function FaceWash() {
   return (
     
     <div className="bg-gray-100 min-h-screen">
+        <div className="mx-4 my-4 !shadow-3xl shadow-red-900/30 bg-[#1E2D42] bg-gradient-to-br from-[#EE971D] to-[#1E2D42] rounded-xl text-white text-center py-12 ">
+        <h1 className="text-3xl font-bold">Face Wash</h1>
+        <p className="mt-2 text-white/80 text-sm">Timeless Elegance for Every Occasion</p>
+      </div>
       <nav className="flex items-center gap-2 text-sm text-gray-500 mt-3 !pl-7">
           <Link to="/" className="!text-lg !no-underline !font-semibold !text-[#1E2D42] transition-colors">Home</Link>
           <span className="text-lg !font-medium">/</span>
@@ -106,7 +110,6 @@ function FaceWash() {
 
         {/* Products */}
         <div className="flex-1">
-          <h1 className="text-3xl font-bold mb-6">Face Wash</h1>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {faceWashProducts.length > 0 ? (
               faceWashProducts.map((product) => (
