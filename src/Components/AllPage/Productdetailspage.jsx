@@ -11,10 +11,11 @@ import { getProductByIdWithLiveStats, getRelatedProducts, submitProductReview } 
 import { isInWishlist, toggleWishlist } from '../WishlistUtils';
 import { useAuth } from '../../Context/AuthContext';
 import { useCart } from '../../Context/CartContext';
+// 🟢 ISE COPY-PASTE KARLO (Line 14 par):
 import { 
   getProductImages, 
   prefetchProductImages 
-} from "../services/imageService";
+} from "../../services/imageService";
 
 // ============================================
 // 📦 CUSTOM HOOKS
