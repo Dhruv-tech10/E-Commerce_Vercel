@@ -12,11 +12,8 @@ import { isInWishlist, toggleWishlist } from '../WishlistUtils';
 import { useAuth } from '../../Context/AuthContext';
 import { useCart } from '../../Context/CartContext';
 // 🟢 ISE COPY-PASTE KARLO (Line 14 par):
-import { 
-  getProductImages, 
-  prefetchProductImages 
-} from "../../services/imageService";
-
+// 🟢 Badalkar yeh kar do (Capital 'I' ke saath ImageService):
+import { getProductImages, prefetchProductImages } from "../Services/ImageService";
 // ============================================
 // 📦 CUSTOM HOOKS
 // ============================================

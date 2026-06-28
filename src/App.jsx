@@ -101,6 +101,8 @@ import Fotter from "./Components/Fotter/Fotter";
 import LoginSignup from "./Components/Header/LoginSignup";
 import AuthModal from './Components/AuthModal/AuthModal';
 import ProductDetailsPage from './Components/AllPage/ProductDetailsPage.jsx';
+// ✅ FIX: ProductDetails ko import karo
+import ProductDetails from './Components/AllPage/ProductDetailsPage.jsx';
 import Wishlist from './Components/Header/Wishlist/Wishlist';
 import Cart from './Components/Header/Cart/Cart';
 import Checkoutpage from './Components/Header/Wishlist/Checkoutpage';
@@ -126,9 +128,6 @@ import IconAccessories from "./Components/AllPage/Icons/IconAccessories";
 import IconHomeLiving from "./Components/AllPage/Icons/IconHomeLiving";
 import IconBeauty from "./Components/AllPage/Icons/IconBeauty";
 import IconGrocery from './Components/AllPage/Icons/IconGrocery';
-
-
-
 
 // ============================================
 // 📦 MAIN LAYOUT COMPONENT
