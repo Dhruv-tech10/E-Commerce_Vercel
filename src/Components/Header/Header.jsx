@@ -830,18 +830,18 @@ const handleDeleteAccount = () => {
             )}
           </Link>
 
-  {/* Login / Logout Button */}
+{/* Login / Logout Button */}
 {isAuthenticated ? (
   <button 
     onClick={handleLogout}
-    className="!px-10 !py-[10px] !no-underline !ml-4 font-extrabold text-[17px] rounded-lg border-2 border-red-500 bg-white !text-red-500 shadow-sm transition-all duration-300 hover:!bg-red-500 hover:!text-white"
+    className="!px-10 !py-[10px] !no-underline !ml-4 font-extrabold text-[17px] rounded-lg border-2 border-[#1E2D42] bg-[#1E2D42] text-white shadow-sm transition-all duration-300 opacity-90 hover:opacity-100"
   >
     LOGOUT
   </button>
 ) : (
   <button 
     onClick={() => openAuthModal('login')}
-    className="!px-10 !py-[10px] !no-underline !ml-4 font-extrabold text-[17px] rounded-lg border-2 border-red-500 bg-white !text-red-500 shadow-sm transition-all duration-300 hover:!bg-red-500 hover:!text-white"
+    className="!px-10 !py-[10px] !no-underline !ml-4 font-extrabold text-[17px] rounded-lg border-2 border-[#1E2D42] bg-[#1E2D42] text-white shadow-sm transition-all duration-300 opacity-90 hover:opacity-100"
   >
     LOGIN
   </button>
